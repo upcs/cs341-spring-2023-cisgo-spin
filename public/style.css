@@ -1,0 +1,66 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  
+}
+
+#container {
+  background-color: lightgrey;
+  width: 90%;
+  height: 90%;
+  text-align: center;
+  position: relative;
+  margin: auto;
+  border: 5px solid black;
+}
+
+#filter {
+  background-color: lightblue;
+  width: 100%;
+  height: 15%;
+  position: absolute;
+  top: 0px;
+}
+
+#map {
+  background-color: purple;
+  width: 100%;
+  height: 60%;
+  position: absolute;
+  top: 15%;
+}
+
+#content {
+  background-color: lightgreen;
+  width: 100%;
+  height: 30%;
+  position: absolute;
+  bottom: 0px;
+}
+
+.filter {
+  position: absolute;
+  top: 30%;
+  left: 45%;
+  font-size: 30px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.map {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  font-size: 50px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  font-size: 35px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
