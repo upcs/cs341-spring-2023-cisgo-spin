@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- index.html
+Created by: Kevin Nguyen
+Version 1.0
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="adminStyle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div>
+    <button type="button" style="float: right;"> Logout</button>
+    <h1>Hello, Admin</h1>
+  </div>
+
+  <div>
+    <form>
+      <label for="search"> search </label>
+      <input type="text" id="search" name="searchTextBox">
+      <input type="submit" value="Enter">
+    </form>
+    <a href=advSearch.html>advanced search</a>
+    <a href="Form.html">
+      <button type="button" style="float: right;">Add</button>
+    </a>
+  </div>
+  <!-- Todo: Program to add more data onto list, limited by x amount per row -->
+  <div>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Title</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>2/10</td>
+        <td>Abroad Opportunities</td>
+        <td>"Buttons goes here"</td>
+      </tr>
+      <tr>
+        <!-- Todo: replace with either buttons or an options menu-->
+        <td>2/11</td>
+        <td>More examples here</td>
+        <td>"Same Buttons"</td>
+      </tr>
+    </table>
+  </div>
+  <!-- Todo: Create href pages depending on amount of data
+  Todo: program the buttons to navigate pages-->
+  <div style="text-align: center;">
+    <button type="button">previous</button>
+    <a href="">1 </a>
+    <a href="">2 </a>
+    <a href="">3 </a>
+    <button type="button">next</button>
+  </div>
+  <script src="script.js"></script>
+
+  <!--
+  This script places a badge on your repl's full-browser view back to your repl's cover
+  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
+  teal, blue, blurple, magenta, pink!
+  -->
+  <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script>
+</body>
+
+</html>
