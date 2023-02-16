@@ -6,12 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-admin-addon
     "bootstrap": "^5.2.3",
     "@amcharts/amcharts5": "^5.3.3",
     "@amcharts/amcharts5-fonts": "^5.0.1",
     "@amcharts/amcharts5-geodata": "^5.1.0",
-master
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
