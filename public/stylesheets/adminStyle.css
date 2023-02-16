@@ -6,12 +6,36 @@ html, body {
 }
 div {
   display: block;
-  
+
 }
 table {
   width: 100%;
   height: 50%;
 }
+
+
+
+#logout {
+  margin: 20px 20px 20px 20px;
+  float: right;
+  background-color: #6c757d;
+    color: white;
+}
+
+.table {
+  text-align: center;
+    border: 1px solid grey;
+    height: 250px;
+    padding: 25px 0;
+}
+
+
+.add-btn{
+  float: right;
+  background-color: #007bff;
+    color: white;
+}
+
 
 
 #options {
@@ -86,3 +110,74 @@ table {
     .openButton:hover {
         opacity: 1;
     }
+
+
+/*- -------- Global Styles --------- */
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.thick {
+  border-top: 10px solid;
+  margin-bottom: 50px;
+}
+
+h1, h2, h3, h4 ,h5, h6 {
+    margin: 3px 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.container{
+    width: 1400px;
+    margin: auto;
+}
+
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+header {
+    height: 240px;
+    text-align: center;
+}
+
+header h1 {
+    display: inline-block;
+    padding: 95px 50px 95px 260px;
+    font-size: 50px;
+}
+
+footer {
+    background-color: black;
+    color: grey;
+    text-align: center;
+    padding: 15px;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+}
+
+header #logo {
+    width: 200px;
+    float: right;
+    display: block;
+    margin: 10px 100px 10px 50px;
+}
