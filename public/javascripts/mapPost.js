@@ -1,8 +1,10 @@
+
 // Function to get coordinate points of cities on load
-function getAllOpportunityPoints(){
+function getOpportunities(){
+	var returnValue = [];
 	$.get("/opportunities", {function(ret){
-		const returnValue = ret;
+		returnValue = ret;
 	}});
 
 	return returnValue;
-}
+};
