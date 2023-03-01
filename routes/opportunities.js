@@ -1,33 +1,36 @@
 const { response } = require('express');
 var express = require('express');
-const { dbquery } = require('./dbms_promise');
+const { getAllLocs } = require('../models/getAllLocs.model');
+const { getAllOpps } = require('../models/getAllOpps.model');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-	var promise = dbquery("SELECT * FROM opportunity");
-	var promise2 = dbquery("SELECT * FROM location");
-	promise.then(
-		function(value) {
-			promise2.then(
-				function(locat){
-					for(var item in value)
+	var promise = getAllOpps("SELECT * FROM opportunity");
+	var promise2 = getAllLocs("SELECT * FROM location");
+	promise.then(function(opps) {
+			promise2.then(function(locats){
+					for(var item in opps)
 					{
-						locatItem = locat[item.location_id];
+						locatItem = locats[opps[item].location_id];
 
-						item.latitude = locatItem.latitude;
-						item.longitude = locatItem.longitude;
+						// add the coordinates to the js object that's being returned
+						opps[item].geometry = { type: 'Point', coordinates: Object.values(locatItem.coords).reverse()};
+
+						// rename 'name' to 'title' to work with amchart's display method
+						Object.defineProperty(opps[item], 'title', Object.getOwnPropertyDescriptor(opps[item], 'name'));
+						delete opps[item].name;
 					}
 					
-					res.json(value);
+					res.json(opps);
 				},
 				function(error2){
-					res.send("Location could not be queried! Error: " + error2, 404);
+					res.status(404).send("Location could not be queried!");
 				}
 			);
 			
 		},
 		function(error) {
-			res.send("Database could not be queried! Error: " + error, 404);
+			res.status(404).send(error);
 		}
 	);
 	 /*const obj = [
