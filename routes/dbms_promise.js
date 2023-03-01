@@ -12,11 +12,13 @@ exports.version = '0.0.1';
 
 var mysql = require('mysql'),
     async = require('async');
+const fs = require('fs');
 
-var host = "35.227.140.147";    //from GCloud instance (change to match your db)
+var host = "cisgo-spin.mysql.database.azure.com";    //from GCloud instance (change to match your db)
 var database = "spin";  //database name
-var user = "root";         //username (change to match your db)
-var password = "~Z|[t2l\"A-n1l0ZY";  //password (change to match your db, yes this is very poor practice)
+var user = "spinadmin";         //username (change to match your db)
+var password = "sp1nAr#undtheGl0be";  //password (change to match your db, yes this is very poor practice)
+var ssl = "./routes/DigiCertGlobalRootCA.crt";
 
 /**
  * dbquery
@@ -41,6 +43,7 @@ exports.dbquery = function(query_str) {
                 user: user,
                 password: password,
                 database: database,
+                ssl: {ca:fs.readFileSync(ssl)},
             });
 
             dbclient.connect(callback);

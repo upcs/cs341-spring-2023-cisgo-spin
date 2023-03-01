@@ -6,28 +6,31 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	var promise = dbquery("SELECT * FROM opportunity");
 	var promise2 = dbquery("SELECT * FROM location");
-	promise.then(
-		function(value) {
-			promise2.then(
-				function(locat){
-					for(var item in value)
+	promise.then(function(opps) {
+			promise2.then(function(locats){
+					var returnObj;
+					for(var item in opps)
 					{
-						locatItem = locat[item.location_id];
-
-						item.latitude = locatItem.latitude;
-						item.longitude = locatItem.longitude;
+						locatItem = locats[opps[item].location_id];
+						opps[item].geometry = { type: 'Point', coordinates: Object.values(locatItem.coords).reverse()};
+						Object.defineProperty(opps[item], 'id', Object.getOwnPropertyDescriptor(opps[item], 'name'));
+						delete opps[item].opportunity_id;
+						Object.defineProperty(opps[item], 'title', Object.getOwnPropertyDescriptor(opps[item], 'name'));
+						delete opps[item].name;
+						Object.defineProperty(opps[item], 'ogType', Object.getOwnPropertyDescriptor(opps[item], 'type'));
+						delete opps[item].type;
 					}
 					
-					res.json(value);
+					res.json(opps);
 				},
 				function(error2){
-					res.send("Location could not be queried! Error: " + error2, 404);
+					res.status(404).send("Location could not be queried!");
 				}
 			);
 			
 		},
 		function(error) {
-			res.send("Database could not be queried! Error: " + error, 404);
+			res.status(404).send("Database could not be queried!");
 		}
 	);
 	 /*const obj = [
