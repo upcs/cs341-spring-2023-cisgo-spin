@@ -10,4 +10,4 @@ jobs:
         with:
           node-version: '9'
       - run: npm install
-      - run: npm test
+      - run: npm test --runInBand
