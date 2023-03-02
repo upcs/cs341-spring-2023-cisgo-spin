@@ -2,6 +2,7 @@ const { response } = require('express');
 var express = require('express');
 const { getAllLocs } = require('../models/getAllLocs.model');
 const { getAllOpps } = require('../models/getAllOpps.model');
+const { postAllOppsWithCorrespondingLoc } = require('../models/postOppWithCorrespondingLoc.model');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -33,6 +34,40 @@ router.get('/', function(req, res, next) {
 			res.status(404).send(error);
 		}
 	);
+
+	router.post("/", function(req, res, next){
+		var promise = postAllOppsWithCorrespondingLoc();
+		promise.then(function(opps){
+				console.log("test");
+			}
+		);
+
+
+
+
+
+		/*var event_name = request.body.titleEvent;
+		var description =  request.body.descriptionEvent;
+		var country = request.body.countryEvent;
+		var date = request.body.dateEvent;
+		var email = request.body.emailEvent;
+
+		var query = dbquery(
+			INSERT in Opportunity,
+			(event_name, description, country, date, email),
+			values ("${event_name}", "${description}", "${country}", "${date}", "${email}")
+		);
+
+		database.query(query, function(error, data){
+			if(error){
+				throw error;
+			}
+			else{
+				res.redirect("/");
+			}
+		});*/
+
+	})
 	 /*const obj = [
 	 	{
 	 		id: "london",
