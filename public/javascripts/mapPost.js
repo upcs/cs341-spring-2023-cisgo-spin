@@ -1,4 +1,3 @@
-
 // Function to get coordinate points of cities on load
 function getOpportunities(){
 	var returnValue = [];
