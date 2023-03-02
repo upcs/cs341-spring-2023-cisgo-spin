@@ -5,8 +5,8 @@ const { getAllOpps } = require('../models/getAllOpps.model');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-	var promise = getAllOpps("SELECT * FROM opportunity");
-	var promise2 = getAllLocs("SELECT * FROM location");
+	var promise = getAllOpps();
+	var promise2 = getAllLocs();
 	promise.then(function(opps) {
 			promise2.then(function(locats){
 					for(var item in opps)
