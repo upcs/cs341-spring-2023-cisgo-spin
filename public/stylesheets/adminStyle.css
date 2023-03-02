@@ -122,9 +122,15 @@ body {
     font-family: sans-serif;
 }
 
-.thick {
-  border-top: 10px solid;
+.thick-br {
   margin-bottom: 50px;
+}
+
+.thick-hr {
+  border-top: 15px solid;
+    margin-bottom: 0px;
+    margin-top: 0px;
+
 }
 
 h1, h2, h3, h4 ,h5, h6 {
@@ -139,6 +145,16 @@ h1, h2, h3, h4 ,h5, h6 {
     width: 1400px;
     margin: auto;
 }
+
+
+main {
+  background-color: white;
+}
+
+.main-color {
+  background-color: #E0E0E0;
+}
+
 
 
 .col-1 {width: 8.33%;}
@@ -157,6 +173,9 @@ h1, h2, h3, h4 ,h5, h6 {
 header {
     height: 240px;
     text-align: center;
+    overflow: hidden;
+    background-color: indigo;
+    color: white;
 }
 
 header h1 {
@@ -179,5 +198,6 @@ header #logo {
     width: 200px;
     float: right;
     display: block;
+    object-fit: cover;
     margin: 10px 100px 10px 50px;
 }
