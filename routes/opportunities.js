@@ -42,10 +42,6 @@ router.get('/', function(req, res, next) {
 			}
 		);
 
-
-
-
-
 		/*var event_name = request.body.titleEvent;
 		var description =  request.body.descriptionEvent;
 		var country = request.body.countryEvent;

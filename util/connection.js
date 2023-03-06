@@ -8,6 +8,12 @@ var user = "spinadmin";         //username (change to match your db)
 var password = "sp1nAr#undtheGl0be";  //password (change to match your db, yes this is very poor practice)
 var ssl = "./util/DigiCertGlobalRootCA.crt";
 
+/*
+	This file, connection.js, allows us to make a connection pool to the database.
+
+	We use this file through /models, which we host through endpoints using /routes. 
+	We then make calls to those routes through /public/javascripts.
+*/
 const connection = mysql.createPool({
 	host: host,
 	database: database,

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// defining the names of the files that we're going to host at the routes.
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demoRouter = require('./routes/demo');
@@ -21,6 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Defining the app to use different endpoint files at different links.
+// uses the 'requires' we defined from line 8-12
+// This is essentially saying "When we go to /opportunities, use the file ./routes/opportunities.js"
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/demo', demoRouter);
