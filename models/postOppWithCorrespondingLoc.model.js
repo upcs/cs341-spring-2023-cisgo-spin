@@ -10,10 +10,11 @@ exports.postOppWithCorrespondingLoc = async function postOppWithCorrespondingLoc
 	var name = req.data.titleEvent;
 	var description = req.data.descriptionEvent
 
+	// Dbquery needs to be passed in a string for our query. It does not understand non-strings.
+	// This specific instance that allows us to put in variables is called a 'template literal'
+	// It uses backticks, and then with ${variable} we can insert variables into the string.
 	var sql = dbquery(
-		INSERT in location.id,
-		(country),
-		values ("$(country)")
+		`INSERT in location values(${country}, ${name}, ${description})`
 	);
 
 	var sql2 = dbquery(
