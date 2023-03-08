@@ -24,6 +24,6 @@ The process behind creating a full (working) access or send of data:
 	* To elaborate on this a bit: Our Node/Express is setup as such:
 		* Most files on the project directory are what's known as 'Server-side' (i.e., never seen or accessible by our user, only by our server) but any file in the /public directory will be accessible by the user (whether it's visible or not). A good way to think about it is like this: the /public directory is a normal html webpage structure, like a folder on your desktop that you're running .html pages off of (like HW1 & HW2)
 		* The rest of the directories are our server. I'll go into a bit more elaboration in a different file (since this is buried so far down) but in essence, the reason we're going through all these hoops is because we don't want our user to have access to every file on the server, so we need to specify (and 'send') our user every file/bit of data we want them to have. If we made these database calls client-side instead of server-side, our user could get anyone's password that they wanted to, for example.
-	* You can look at /public/javascripts/mapGet.js (or line 115 in [/public/amchartTest.html](/public/amchartTest.html#L115)[]) for this structure. It's super simple.
+	* You can look at /public/javascripts/mapGet.js (or line 115 in [/public/amchartTest.html](/public/amchartTest.html#L115)) for this structure. It's super simple.
 
 
