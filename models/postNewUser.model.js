@@ -2,7 +2,7 @@ const connection = require('../util/connection');
 
 // This model uses 'connection' which is our db connection script -
 // This specific model calls the query "insert user into user"
-exports.createNewUser = async function createNewUser(req) {
+exports.postNewUser = async function postNewUser(req) {
 	const sql = `INSERT INTO user (firstname, lastname, permissions, email, password, password_salt) VALUES(
 		${req.firstname}, 
 		${req.lastname}, 
