@@ -1,5 +1,5 @@
 /**
- * admin-table.js
+ * admin-data.js
  * This file will use getAllOpps.model.js
  * and turn them into a json object to populate the admin page
  * Created By: Kevin Nguyen
