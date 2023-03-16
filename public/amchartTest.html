@@ -15,8 +15,7 @@
 	<script src="https://cdn.amcharts.com/lib/5/themes/Moonrise.js"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="./javascripts/mapPost.js"></script>
-	
+
 	<!-- Chart code -->
 	<script>
 	am5.ready(function() {
@@ -114,12 +113,18 @@
 
 	// load the city data from the db
 	var cities = [];
-	$.getJSON('/opportunities', function(ret){
-		cities = ret;
-
+	$.getJSON("/locations", function(ret){
+		for(var i = 0; i < ret.length; i++)
+		{
+			obj = {
+				geometry: {type: 'Point', coordinates: Object.values(ret[i].coords).reverse()},
+				title:  ret[i].city,
+				id:  ret[i].location_id
+			};
+			cities[i] = obj;
+		}
 		citySeries.data.setAll(cities);
 	});
-
 	
 
 	// Add a button to go back to continents view
