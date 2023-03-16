@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var demoRouter = require('./routes/demo');
 var opportunitiesRouter = require('./routes/opportunities');
 var adminRouter = require('./routes/admin');
+var formRouter = require('./routes/form');
 
 var locationsRouter = require('./routes/locations');
 var advSearchRouter = require('./routes/adv-search');
@@ -35,7 +36,7 @@ app.use('/opportunities', opportunitiesRouter);
 app.use('/admin', adminRouter);
 app.use('/locations', locationsRouter);
 app.use('/search', advSearchRouter);
-
+app.use('/form', formRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
