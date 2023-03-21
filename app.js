@@ -4,11 +4,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// defining the names of the files that we're going to host at the routes.
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demoRouter = require('./routes/demo');
 var opportunitiesRouter = require('./routes/opportunities');
+var adminRouter = require('./routes/admin');
+var formRouter = require('./routes/form');
 
+var locationsRouter = require('./routes/locations');
+var advSearchRouter = require('./routes/adv-search');
 var app = express();
 
 // view engine setup
@@ -21,10 +26,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Defining the app to use different endpoint files at different links.
+// uses the 'requires' we defined from line 8-12
+// This is essentially saying "When we go to /opportunities, use the file ./routes/opportunities.js"
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/demo', demoRouter);
 app.use('/opportunities', opportunitiesRouter);
+app.use('/admin', adminRouter);
+app.use('/locations', locationsRouter);
+app.use('/search', advSearchRouter);
+app.use('/form', formRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -24,102 +24,119 @@ Version 1.0
     <img class="img-fluid" id="logo" src="img/up-logo.jfif" alt="Logo">
   </header>
 
-  <hr class="thick">
+
+  <hr class="thick-hr">
+
+  <div class="main-color">
+    <main class="container">
+      <br class="thick-br">
 
 
-  <main class="container">
+    <div>
+      <button type="button" id="logout"> Logout</button>
+      <p>Select an item from the list below or search using the search bar below to edit an item.
+        <br>You can also press add or delete on the right to do those action.</p>
+    </div>
+
+    <div>
+        <form>
+            <label for="search"> search </label>
+            <input type="text" id="search" name="searchTextBox">
+            <input type="submit" value="Enter">
+        </form>
+        <a href=advSearch.html style="font-size: 13px">advanced search</a>
 
 
-  <div>
-    <button type="button" id="logout"> Logout</button>
-    <h1 class="center">Hello, Admin</h1>
+
+        <div class="deleteBtn">
+            <button class="openButton" style="float: right;" onclick="openForm()" id="deleteButton">Delete</button>
+        </div>
+        <div class="loginPopup" id="deletePop">
+            <div class="formPopup" id="popupFormDelete">
+                <form action="/action_page.php" class="formContainer">
+                    <h2>Deletion Form</h2>
+                    <label for="Delete">
+                        <strong>Select Event</strong>
+                    </label>
+                    <select class="dropdown-content" name="options" id="options" size="3">
+                        <option value="First" id="1st">Spain Study Abroad</option>
+                        <option value="Second" id="2nd">Salzberg Project</option>
+                        <option value="Third" id="3rd">Paris Study Abroad</option>
+
+                    </select>
+                    <button type="submit" class="btn">Delete</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <a href="Form.html" id="add">
+            <button type="button"  class="add-btn">Add</button>
+        </a>
+    </div>
+
+    <br>
+    <br>
+    <!-- Todo: Program to add more data onto list, limited by x amount per row -->
+    <div>
+      <table class="table">
+        <tr>
+          <th>Date</th>
+          <th>Title</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>2/10</td>
+          <td>Spain Study Abroad</td>
+          <td>
+              <a href="Form.html" >
+                  <button type="button">Edit</button>
+                  <button type="button">Archive</button>
+              </a>
+          </td>
+        </tr>
+        <tr>
+          <!-- Todo: replace with either buttons or an options menu-->
+          <td>2/11</td>
+          <td>Salzberg Project</td>
+          <td>
+              <a href="Form.html">
+                  <button type="button">Edit</button>
+                  <button type="button">Archive</button>
+              </a>
+          </td>
+        </tr>
+        <tr>
+          <td>5/20</td>
+          <td>Paris Study Abroad</td>
+          <td>
+              <a href="Form.html">
+                  <button type="button">Edit</button>
+                  <button type="button">Archive</button>
+              </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- Todo: Create href pages depending on amount of data
+    Todo: program the buttons to navigate pages-->
+    <div style="text-align: center;">
+      <button type="button">previous</button>
+      <a href="">1 </a>
+      <a href="">2 </a>
+      <a href="">3 </a>
+      <button type="button">next</button>
+    </div>
+    <script src="script.js"></script>
+
+    <!-- JS plugins for Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <br>
+
+    </main>
+
   </div>
-
-  <div>
-      <form>
-          <label for="search"> search </label>
-          <input type="text" id="search" name="searchTextBox">
-          <input type="submit" value="Enter">
-      </form>
-      <a href=advSearch.html>advanced search</a>
-
-
-
-      <div class="deleteBtn">
-          <button class="openButton" style="float: right;" onclick="openForm()" id="deleteButton">Delete</button>
-      </div>
-      <div class="loginPopup" id="deletePop">
-          <div class="formPopup" id="popupFormDelete">
-              <form action="/action_page.php" class="formContainer">
-                  <h2>Deletion Form</h2>
-                  <label for="Delete">
-                      <strong>Select Event</strong>
-                  </label>
-                  <select class="dropdown-content" name="options" id="options" size="3">
-                      <option value="First" id="1st">Spain Study Abroad</option>
-                      <option value="Second" id="2nd">Salzberg Project</option>
-                      <option value="Third" id="3rd">Paris Study Abroad</option>
-
-                  </select>
-                  <button type="submit" class="btn">Delete</button>
-                  <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-              </form>
-          </div>
-      </div>
-      <a href="Form.html" id="add">
-          <button type="button"  class="add-btn">Add</button>
-      </a>
-  </div>
-
-  <br>
-  <br>
-  <!-- Todo: Program to add more data onto list, limited by x amount per row -->
-  <div>
-    <table class="table">
-      <tr>
-        <th>Date</th>
-        <th>Title</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td>2/10</td>
-        <td>Abroad Opportunities</td>
-        <td>
-            <a href="Form.html" >
-                <button type="button">Edit</button>
-            </a>
-        </td>
-      </tr>
-      <tr>
-        <!-- Todo: replace with either buttons or an options menu-->
-        <td>2/11</td>
-        <td>More examples here</td>
-        <td>
-            <a href="Form.html" >
-                <button type="button">Edit</button>
-            </a>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <!-- Todo: Create href pages depending on amount of data
-  Todo: program the buttons to navigate pages-->
-  <div style="text-align: center;">
-    <button type="button">previous</button>
-    <a href="">1 </a>
-    <a href="">2 </a>
-    <a href="">3 </a>
-    <button type="button">next</button>
-  </div>
-  <script src="script.js"></script>
-
-  <!-- JS plugins for Bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <br>
-
-  </main>
 
   <footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
 

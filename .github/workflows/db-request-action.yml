@@ -1,0 +1,16 @@
+name: db-request-action
+run-name: ${{ github.actor }} is running our Jest tests...
+on: [push]
+jobs:
+  run-db-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install
+      - run: npm test --runInBand
+    env:
+      CI: true
+
