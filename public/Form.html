@@ -22,21 +22,25 @@
 
     <h1 class="center">Form Page</h1>
     <div>
-        <form method="post" action="index.html">
+        <form method="post" action="routes/opportunities.js">
             <label for="titleEvent">Event</label>
-            <input type="text" id="titleEvent"><br>
+            <input type="text" id="titleEvent" required><br>
             <label for="descriptionEvent">Description</label><br>
-            <textarea rows="5" cols="40" id="descriptionEvent"></textarea><br>
+            <textarea rows="5" cols="40" id="descriptionEvent" required></textarea><br>
             <label for="countryEvent">Country</label>
-            <input type="text" id="countryEvent"><br>
+            <input type="text" id="countryEvent" required><br>
+            <label for="stateEvent">State</label>
+            <input type="text" id="stateEvent"><br>
+            <label for="cityEvent">City</label>
+            <input type="text" id="cityEvent" required><br>
             <label for="dateEvent">Date</label>
-            <input type="text" id="dateEvent"><br>
+            <input type="text" id="dateEvent" required><br>
             <label for="emailEvent"> Email address</label>
-            <input type="text" id="emailEvent"><br>
+            <input type="text" id="emailEvent" required><br>
+            <a href="adminPage.html">
+              <input type="submit" name="submit_Button" value="Add" class="add-btn">
+            </a>
         </form>
-        <a href="adminPage.html">
-            <input type="submit" name="submit_Button" value="Add" class="add-btn">
-        </a>
     </div>
 
     <footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
