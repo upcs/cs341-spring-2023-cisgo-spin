@@ -12,7 +12,7 @@ const { response } = require('express');
 var express = require('express');
 const { getAllLocs } = require('../models/getAllLocs.model');
 const { getAllOpps } = require('../models/getAllOpps.model');
-const { postAllOppsWithCorrespondingLoc } = require('../models/postOppWithCorrespondingLoc.model');
+//const { postAllOppsWithCorrespondingLoc } = require('../models/postOppWithCorrespondingLoc.model');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
