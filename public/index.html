@@ -12,15 +12,16 @@
 </head>
 
 <body>
-
   <div id="container">
     <div class="filter">
+      <div id="login">
+        <button onclick="document.location='/admin'">Log in</button>
+      </div>
       <div id="filter">
         <button class="btn active" onclick="filterSelection('all')"> Show all</button>
         <button class="btn" onclick="filterSelection('current')"> Current</button>
         <button class="btn" onclick="filterSelection('archived')"> Archived</button>
         <button class="btn" onclick="filterSelection('pending')"> Pending</button>
-        <button class="btn" onclick="filterSelection('select')"> Select</button>
       </div>
     </div>
     <div id="map">
@@ -28,9 +29,42 @@
 
       </div>
     </div>
-    <div id="content">
+    <div id="content" style="display:none">
       <div class="content">
-        Content
+        <table style="width:100%">
+          <tr>
+            <td>Image: </td>
+            <td>Opportunity: </td>
+            <td>Description: </td>
+            <td>Contact: </td>
+          </tr>
+          <tr>
+            <td>
+              <div id="image">
+                <img src="img/up-logo.jfif" alt="Logo" width="125" height="125">
+              </div>
+            </td>
+            <td>
+              <div id="opportunity">
+                <p>adipiscing enim</p>
+                <p>consequat semper</p>
+              </div>
+            </td>
+            <td>
+              <div id="description">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+                <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              </div>
+            </td>
+            <td>
+              <div id="contact">
+                <p>Phone: senectus et netus</p>
+                <p>Email: morbi tempus iaculis</p>
+                <p>Website: egestas quis ipsum</p>
+              </div>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -101,7 +135,6 @@
   <script src="https://cdn.amcharts.com/lib/5/themes/Moonrise.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="./javascripts/mapPost.js"></script>
 
   <!-- Chart code -->
   <script>
@@ -192,7 +225,12 @@
           stroke: root.interfaceColors.get("background"),
           strokeWidth: 2
         });
-
+        circle.events.on("click", function(ev) {
+          console.log("Clicked on a bullet!", ev.target.dataItem.dataContext.title);
+          $("#opportunity").text(ev.target.dataItem.dataContext.title);
+          $("#description").text(ev.target.dataItem.dataContext.id);
+          $("#content").show();
+        });
         return am5.Bullet.new(root, {
           sprite: circle
         });
@@ -200,13 +238,18 @@
 
       // load the city data from the db
       var cities = [];
-      $.getJSON('/opportunities', function (ret) {
-        cities = ret;
-
+      $.getJSON('/locations', function (ret) {
+        for(var i = 0; i < ret.length; i++)
+        {
+          var obj = {
+            geometry: {type: 'Point', coordinates: Object.values(ret[i].coords).reverse()},
+            title:  ret[i].city,
+            id: ret[i].location_id
+          };
+          cities[i] = obj;
+        }
         citySeries.data.setAll(cities);
       });
-
-
 
       // Add a button to go back to continents view
       var homeButton = chart.children.push(am5.Button.new(root, {
@@ -228,6 +271,7 @@
         countrySeries.hide();
         citySeries.hide();
         homeButton.hide();
+        $("#content").hide();
       });
 
 

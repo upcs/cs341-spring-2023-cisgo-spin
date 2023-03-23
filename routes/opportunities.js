@@ -4,70 +4,36 @@
 	As of Mar 2, 2023, though we plan to change up the behavior a little bit, 
 	the file currently defines the endpoint for /opportunities,
 	specifically the get & post request behavior.
-
-	
 */
 
 const { response } = require('express');
 var express = require('express');
 const { getAllLocs } = require('../models/getAllLocs.model');
 const { getAllOpps } = require('../models/getAllOpps.model');
-//const { postAllOppsWithCorrespondingLoc } = require('../models/postOppWithCorrespondingLoc.model');
+const { postOpp } = require('../models/postOpp.model');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	var promise = getAllOpps();
-	// var promise2 = getAllLocs();
-	promise.then(function(opps) {
-			// promise2.then(function(locats){
-			// 		for(var item in opps)
-			// 		{
-			// 			locatItem = locats[opps[item].location_id];
-
-			// 			// add the coordinates to the js object that's being returned
-			// 			opps[item].geometry = { type: 'Point', coordinates: Object.values(locatItem.coords).reverse()};
-
-			// 			// rename 'name' to 'title' to work with amchart's display method
-			// 			Object.defineProperty(opps[item], 'title', Object.getOwnPropertyDescriptor(opps[item], 'name'));
-			// 			delete opps[item].name;
-			// 		}
-					
+	promise.then(function(opps) {	
 			res.json(opps);
 		},
 		function(error) {
 			res.status(503).send(error);
 		}
 	);
+});
 
-	router.post("/", function(req, res, next){
-		var promise = postAllOppsWithCorrespondingLoc();
-		promise.then(function(opps){
-				console.log("test");
-			}
-		);
-
-		/*var event_name = request.body.titleEvent;
-		var description =  request.body.descriptionEvent;
-		var country = request.body.countryEvent;
-		var date = request.body.dateEvent;
-		var email = request.body.emailEvent;
-
-		var query = dbquery(
-			INSERT in Opportunity,
-			(event_name, description, country, date, email),
-			values ("${event_name}", "${description}", "${country}", "${date}", "${email}")
-		);
-
-		database.query(query, function(error, data){
-			if(error){
-				throw error;
-			}
-			else{
-				res.redirect("/");
-			}
-		});*/
-
-	})
+router.post("/", function(req, res, next){
+	var promise = postOpp();
+	promise.then(function(opps){
+		console.log("This is actually sending")
+		res.json(opps);
+	},
+   	function(error) {
+	   res.status(503).send(error);
+	});
 });
 
 module.exports = router;

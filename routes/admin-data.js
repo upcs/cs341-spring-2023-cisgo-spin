@@ -13,12 +13,14 @@ const {getOppsbyID} = require('../models/getOppWithID.model')
 //Router to get all opportunities
 router.get('/', function(req, res, next){
     var promise = getAllOpps();
+
     promise.then(function(opps){
         res.json(opps);
     }, 
     function(err){
         res.status(404).send(err);
     });
+
 });
 
 //router to get an opportunity using an ID
@@ -32,3 +34,4 @@ router.get('/id',function(req, res, next){
 });
 
 module.exports = router;
+

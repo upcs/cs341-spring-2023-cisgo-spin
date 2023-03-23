@@ -94,7 +94,7 @@ table {
     .formContainer .btn {
         padding: 12px 20px;
         border: none;
-        background-color: #8ebf42;
+        background-color: darkorchid;
         color: #fff;
         cursor: pointer;
         width: 100%;
@@ -103,7 +103,7 @@ table {
     }
 
     .formContainer .cancel {
-        background-color: #cc0000;
+        background-color: darkviolet;
     }
 
     .formContainer .btn:hover,

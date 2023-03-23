@@ -9,8 +9,15 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demoRouter = require('./routes/demo');
 var opportunitiesRouter = require('./routes/opportunities');
-var adminDataRouter = require('./routes/admin-data');
 
+var adminDataRouter = require('./routes/admin-data');
+var adminRouter = require('./routes/admin');
+var formRouter = require('./routes/form');
+var locationDemoRouter = require('./routes/location-parse-demo');
+
+
+var locationsRouter = require('./routes/locations');
+var advSearchRouter = require('./routes/adv-search');
 var app = express();
 
 // view engine setup
@@ -30,7 +37,15 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/demo', demoRouter);
 app.use('/opportunities', opportunitiesRouter);
+
 app.use('/admin-data', adminDataRouter);
+
+app.use('/admin', adminRouter);
+app.use('/locations', locationsRouter);
+app.use('/search', advSearchRouter);
+app.use('/form', formRouter);
+app.use('/locationdemo', locationDemoRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -58,3 +58,6 @@ $(document).ready(function(){
             tabCell.innerHTML = dataVal[i];
         }
 });
+
+}
+
