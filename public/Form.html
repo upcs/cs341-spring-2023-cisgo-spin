@@ -8,8 +8,14 @@
   <link href="stylesheets/adminStyle.css" rel="stylesheet" type="text/css" />
   <!-- Link to CSS for Boostrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="javascripts/formPostHandler.js"></script>
+  <script>
+
+
+  </script>
 </head>
-  <!-- Todo: Fix up the format to look nice-->
+  <!-- Todo: Fix up the format to look nice  method="post" -->
   <body>
     <header>
       <h1>SPIN Around the World</h1>
@@ -22,7 +28,7 @@
 
     <h1 class="center">Form Page</h1>
     <div>
-        <form method="post" action="routes/opportunities.js">
+        <form id="formInfo">
             <label for="titleEvent">Event</label>
             <input type="text" id="titleEvent" required><br>
             <label for="descriptionEvent">Description</label><br>
@@ -38,7 +44,7 @@
             <label for="emailEvent"> Email address</label>
             <input type="text" id="emailEvent" required><br>
             <a href="adminPage.html">
-              <input type="submit" name="submit_Button" value="Add" class="add-btn">
+              <input type="submit" name="submit_Button" value="Add" class="add-btn" onclick="submitForm()">
             </a>
         </form>
     </div>
