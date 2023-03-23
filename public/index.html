@@ -242,7 +242,7 @@
         for(var i = 0; i < ret.length; i++)
         {
           var obj = {
-            geometry: {type: 'Point', coordinates: Object.values(ret[i].coords).reverse()},
+            geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
             title:  ret[i].city,
             id: ret[i].location_id
           };

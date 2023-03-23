@@ -12,6 +12,7 @@ var opportunitiesRouter = require('./routes/opportunities');
 var adminRouter = require('./routes/admin');
 var formRouter = require('./routes/form');
 var locationDemoRouter = require('./routes/location-parse-demo');
+var addLocation = require('./routes/location-add-demo');
 
 var locationsRouter = require('./routes/locations');
 var advSearchRouter = require('./routes/adv-search');
@@ -39,6 +40,7 @@ app.use('/locations', locationsRouter);
 app.use('/search', advSearchRouter);
 app.use('/form', formRouter);
 app.use('/locationdemo', locationDemoRouter);
+app.use('/addlocation', addLocation);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
