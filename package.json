@@ -7,9 +7,6 @@
     "test": "jest --runInBand --detectOpenHandles"
   },
   "dependencies": {
-    "@amcharts/amcharts5": "^5.3.3",
-    "@amcharts/amcharts5-fonts": "^5.0.1",
-    "@amcharts/amcharts5-geodata": "^5.1.0",
     "async": "^3.2.4",
     "bootstrap": "^5.2.3",
     "cookie-parser": "~1.4.4",

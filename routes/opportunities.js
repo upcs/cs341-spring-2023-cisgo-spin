@@ -17,21 +17,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	var promise = getAllOpps();
-	// var promise2 = getAllLocs();
 	promise.then(function(opps) {
-			// promise2.then(function(locats){
-			// 		for(var item in opps)
-			// 		{
-			// 			locatItem = locats[opps[item].location_id];
-
-			// 			// add the coordinates to the js object that's being returned
-			// 			opps[item].geometry = { type: 'Point', coordinates: Object.values(locatItem.coords).reverse()};
-
-			// 			// rename 'name' to 'title' to work with amchart's display method
-			// 			Object.defineProperty(opps[item], 'title', Object.getOwnPropertyDescriptor(opps[item], 'name'));
-			// 			delete opps[item].name;
-			// 		}
-					
 			res.json(opps);
 		},
 		function(error) {

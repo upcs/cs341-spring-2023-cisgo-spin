@@ -29,7 +29,7 @@
 
       </div>
     </div>
-    <div id="content">
+    <div id="content" style="display:none">
       <div class="content">
         <table style="width:100%">
           <tr>
@@ -225,7 +225,12 @@
           stroke: root.interfaceColors.get("background"),
           strokeWidth: 2
         });
-
+        circle.events.on("click", function(ev) {
+          console.log("Clicked on a bullet!", ev.target.dataItem.dataContext.title);
+          $("#opportunity").text(ev.target.dataItem.dataContext.title);
+          $("#description").text(ev.target.dataItem.dataContext.id);
+          $("#content").show();
+        });
         return am5.Bullet.new(root, {
           sprite: circle
         });
@@ -233,13 +238,18 @@
 
       // load the city data from the db
       var cities = [];
-      $.getJSON('/opportunities', function (ret) {
-        cities = ret;
-
+      $.getJSON('/locations', function (ret) {
+        for(var i = 0; i < ret.length; i++)
+        {
+          var obj = {
+            geometry: {type: 'Point', coordinates: Object.values(ret[i].coords).reverse()},
+            title:  ret[i].city,
+            id: ret[i].location_id
+          };
+          cities[i] = obj;
+        }
         citySeries.data.setAll(cities);
       });
-
-
 
       // Add a button to go back to continents view
       var homeButton = chart.children.push(am5.Button.new(root, {
@@ -261,6 +271,7 @@
         countrySeries.hide();
         citySeries.hide();
         homeButton.hide();
+        $("#content").hide();
       });
 
 
