@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+
+const port = process.env.PORT || 3000;
 
 // defining the names of the files that we're going to host at the routes.
 var indexRouter = require('./routes/index');
@@ -16,6 +19,8 @@ var formRouter = require('./routes/form');
 var locationDemoRouter = require('./routes/location-parse-demo');
 var addLocation = require('./routes/location-add-demo');
 
+var loginTest = require('./routes/logintest');
+var authRouter = require('./routes/auth');
 
 var locationsRouter = require('./routes/locations');
 var advSearchRouter = require('./routes/adv-search');
@@ -47,12 +52,22 @@ app.use('/search', advSearchRouter);
 app.use('/form', formRouter);
 app.use('/locationdemo', locationDemoRouter);
 app.use('/addlocation', addLocation);
-
+app.use('/auth', authRouter);
+app.use('/login', loginTest);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// session management
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(session({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -64,5 +79,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/* UNCOMMENT THIS WHEN IT COMES TIME TO DEPLOY */
+//app.listen(port, () => {
+//  console.log(`Example app listening at http://localhost:${port}`)
+//})
 
 module.exports = app;
