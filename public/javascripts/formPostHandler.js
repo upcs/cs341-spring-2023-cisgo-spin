@@ -2,12 +2,10 @@ function submitForm(){
     const form = document.getElementById('formInfo');
     const formDataObj = {};
 
-    for (let i = 0; i < form.elements.length; i++) {
-        const field = form.elements[i];
-        if (field.type !== 'submit') {
-            formDataObj[field.name] = field.value;
-        }
-    }
+    formDataObj.name = form.elements['titleEvent'].value;
+    formDataObj.name = form.elements['type'].value;
+    formDataObj.name = form.elements['loactionSelector'].value;
+    //NOTE THAT THIS LAST OBJ. WILL BE IMPLEMENTED BY NATE H.
 
     const jsonData = JSON.stringify(formDataObj)
 
