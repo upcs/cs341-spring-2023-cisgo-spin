@@ -28,7 +28,7 @@
 
     <h1 class="center">Form Page</h1>
     <div>
-        <form id="formInfo">
+        <form id="formInfo" onsubmit="submitForm(); return false">
             <label for="titleEvent">Event</label>
             <input type="text" id="titleEvent" required><br>
             <label for="descriptionEvent">Description</label><br>
@@ -42,7 +42,7 @@
             <label for="emailEvent"> Email address</label>
             <input type="text" id="emailEvent" required><br>
             <a>
-              <input type="button" name="submit_Button" value="Add" class="add-btn" onclick="submitForm()">
+              <input type="submit" name="submit_Button" value="Add" class="add-btn">
             </a>
             <!--href="adminPage.html"-->
         </form>
