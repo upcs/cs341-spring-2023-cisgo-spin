@@ -10,9 +10,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="javascripts/formPostHandler.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script>
-
-
+    $(function() {
+      $('input[name="dateEvent"]').daterangepicker();
+    })
   </script>
 </head>
   <!-- Todo: Fix up the format to look nice  method="post" -->
@@ -34,7 +38,7 @@
 
             <label for="descriptionEvent">Description</label><br>
             <textarea rows="5" cols="40" id="descriptionEvent" required></textarea><br>
-            
+
             <label for="cityEvent">City</label>
             <select id="cities" name="citySelect">
             </select>
@@ -43,11 +47,13 @@
             </select>
             <label for="typeEvent">Type</label>
             <select id="type" name="typeSelect">
-            </select>
-            <label for="dateEvent">Date</label>
-            <input type="text" id="dateEvent" required><br>
+            </select><br>
+            <label for="dateEvent">Date Range</label>
+            <input type="text" name="dateEvent"/><br>
+
             <label for="emailEvent"> Email address</label>
             <input type="text" id="emailEvent" required><br>
+
             <a>
               <input type="submit" name="submit_Button" value="Add" class="add-btn">
             </a>
