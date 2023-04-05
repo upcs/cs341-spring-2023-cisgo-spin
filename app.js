@@ -7,23 +7,25 @@ var session = require('express-session');
 
 const port = process.env.PORT || 3000;
 
-// defining the names of the files that we're going to host at the routes.
-var indexRouter = require('./routes/index');
+/* router requires: defining the names of the files that we're going to host at the routes. */
+
+// routes for data gets (like db access)
 var usersRouter = require('./routes/users');
-var demoRouter = require('./routes/demo');
 var opportunitiesRouter = require('./routes/opportunities');
-
 var adminDataRouter = require('./routes/admin-data');
-var adminRouter = require('./routes/admin');
-var formRouter = require('./routes/form');
-var locationDemoRouter = require('./routes/location-parse-demo');
-var addLocation = require('./routes/location-add-demo');
-
-var loginTest = require('./routes/logintest');
 var authRouter = require('./routes/auth');
-
 var locationsRouter = require('./routes/locations');
-var advSearchRouter = require('./routes/adv-search');
+
+// Html pages being hosted
+var indexRouter = require('./routes/html/index');
+var demoRouter = require('./routes/html/demo');
+var advSearchRouter = require('./routes/html/adv-search');
+var adminRouter = require('./routes/html/admin');
+var formRouter = require('./routes/html/form');
+var locationDemoRouter = require('./routes/html/location-parse-demo');
+var addLocation = require('./routes/html/location-add-demo');
+var loginTest = require('./routes/html/logintest');
+
 var app = express();
 
 // view engine setup
@@ -39,21 +41,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Defining the app to use different endpoint files at different links.
 // uses the 'requires' we defined from line 8-12
 // This is essentially saying "When we go to /opportunities, use the file ./routes/opportunities.js"
+
+// html pages
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/demo', demoRouter);
-app.use('/opportunities', opportunitiesRouter);
-
-app.use('/admin-data', adminDataRouter);
-
 app.use('/admin', adminRouter);
-app.use('/locations', locationsRouter);
+app.use('/demo', demoRouter);
+app.use('/addlocation', addLocation);
 app.use('/search', advSearchRouter);
+app.use('/login', loginTest);
 app.use('/form', formRouter);
 app.use('/locationdemo', locationDemoRouter);
-app.use('/addlocation', addLocation);
+
+// data endpoints
+app.use('/users', usersRouter);
+app.use('/opportunities', opportunitiesRouter);
+app.use('/admin-data', adminDataRouter);
+app.use('/locations', locationsRouter);
 app.use('/auth', authRouter);
-app.use('/login', loginTest);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,6 +66,7 @@ app.use(function(req, res, next) {
 });
 
 // session management
+// TODO: change to be randomized at runtime
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",

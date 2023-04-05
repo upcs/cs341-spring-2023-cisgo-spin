@@ -10,13 +10,15 @@ router.post('/', function(request, response) {
 	bcrypt.genSalt(saltRounds, function(err, salt) {
 		if(err)
 		{
-			// response (could not generate a salt!)
+			res.status(503).send(err);
+			return;
 		}
 		// if salt was successful, generate hash with salt
 		bcrypt.hash(request.body.password, salt, function(err, hash) {
 			if(err)
 			{
-				// response (could not hash password!)
+				res.status(503).send(err);
+				return;
 			}
 			
 			// if hash was successful, store hashed password in db along with salt
