@@ -24,6 +24,7 @@ router.post('/', function(request, response) {
 					request.session.loggedin = true;
 					request.session.username = username;
 				
+					response.status(200).send("Now logged in with user: " + username);
 					// return success response
 				}
 			} else {

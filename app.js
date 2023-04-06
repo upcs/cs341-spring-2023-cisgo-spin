@@ -7,6 +7,8 @@ var session = require('express-session');
 
 const port = process.env.PORT || 3000;
 
+
+
 /* router requires: defining the names of the files that we're going to host at the routes. */
 
 // routes for data gets (like db access)
@@ -15,6 +17,7 @@ var opportunitiesRouter = require('./routes/opportunities');
 var adminDataRouter = require('./routes/admin-data');
 var authRouter = require('./routes/auth');
 var locationsRouter = require('./routes/locations');
+var newUserRouter = require('./routes/newuser');
 
 // Html pages being hosted
 var indexRouter = require('./routes/html/index');
@@ -28,6 +31,7 @@ var loginTest = require('./routes/html/logintest');
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -37,6 +41,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// session management
+// TODO: change to be randomized at runtime
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(session({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
 
 // Defining the app to use different endpoint files at different links.
 // uses the 'requires' we defined from line 8-12
@@ -58,22 +72,13 @@ app.use('/opportunities', opportunitiesRouter);
 app.use('/admin-data', adminDataRouter);
 app.use('/locations', locationsRouter);
 app.use('/auth', authRouter);
+app.use('/newuser', newUserRouter);
 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-// session management
-// TODO: change to be randomized at runtime
-const oneDay = 1000 * 60 * 60 * 24;
-app.use(session({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
-    resave: false 
-}));
 
 // error handler
 app.use(function(err, req, res, next) {
