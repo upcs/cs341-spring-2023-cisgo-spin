@@ -12,12 +12,43 @@
   <script src="javascripts/formPostHandler.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script>
+    var allLocations = [];
+    var allTypes = [];
     $(function() {
       $('input[name="dateEvent"]').daterangepicker();
+
+      $.get('/locations', function(ret){
+        allLocations = ret;
+
+        var countries = _.keys(_.countBy(allLocations, function(data) { return data.country; }));
+
+        $(countries).each(function() {
+          var option = $('<option />');
+          option.attr('value', this).text(this);
+
+          $('#ddl_country').append(option);
+        });
+		  });
+
+      $.get('/types', function(data){
+          allTypes = data;
+
+          var types = _.keys(_.countBy(allTypes, function(data) { return data.type; }));
+
+          $(types).each(function() {
+            var option = $('<option />');
+            option.attr('value', this).text(this);
+
+            $('#ddl_type').append(option);
+          })
+      })
     })
   </script>
+  <script src="./javascripts/country-select.js"></script>
+  <script src="./javascripts/state-select.js"></script>
 </head>
   <!-- Todo: Fix up the format to look nice  method="post" -->
   <body>
@@ -33,31 +64,38 @@
     <h1 class="center">Form Page</h1>
     <div>
         <form id="formInfo" onsubmit="submitForm(); return false">
-            <label for="titleEvent">Event Name</label>
-            <input type="text" id="titleEvent" required><br>
+          <label for="titleEvent">Event Name</label>
+          <input type="text" id="titleEvent" required><br>
 
-            <label for="descriptionEvent">Description</label><br>
-            <textarea rows="5" cols="40" id="descriptionEvent" required></textarea><br>
+          <label for="description">Description</label><br>
+          <textarea rows="5" cols="40" id="description" required></textarea><br>
 
-            <label for="cityEvent">City</label>
-            <select id="cities" name="citySelect">
-            </select>
-            <label for="countryEvent">Country</label>
-            <select id="countries" name="countrySelect">
-            </select>
-            <label for="typeEvent">Type</label>
-            <select id="type" name="typeSelect">
-            </select><br>
-            <label for="dateEvent">Date Range</label>
-            <input type="text" name="dateEvent"/><br>
+          <label for="ddl_country">Country:</label>
+          <select name="ddl_country" id="ddl_country" required>
+            <option name="">Select a Country</option>
+          </select>
 
-            <label for="emailEvent"> Email address</label>
-            <input type="text" id="emailEvent" required><br>
+          <label for="ddl_state">State:</label>
+          <select name="ddl_state" id="ddl_state">
+            <option value="">Select a State</option>
+          </select>
 
-            <a>
-              <input type="submit" name="submit_Button" value="Add" class="add-btn">
-            </a>
-            <!--href="adminPage.html"-->
+          <label for="ddl_city">City:</label>
+          <select name="ddl_city" id="ddl_city" required>
+            <option value="">Select a City</option>
+          </select>
+
+          <label for="typeEvent">Type</label>
+          <select id="ddl_type" name="typeSelect" required></select><br>
+
+          <label for="dateEvent">Date Range</label>
+          <input type="text" name="dateEvent"/><br>
+
+          <label for="emailEvent"> Email address</label>
+          <input type="text" id="emailEvent" required><br>
+
+          <input type="submit" name="submit_Button" value="Add" class="btn btn-outline-primary">
+          <!--href="adminPage.html"-->
         </form>
     </div>
 

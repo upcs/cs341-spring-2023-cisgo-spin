@@ -10,7 +10,7 @@ stateSelectEvent = function( event ) {
 	}
 
 	$('#ddl_city').empty();
-	$('#ddl_city').append('<option value="Placeholder">Select a City</option>');
+	$('#ddl_city').append('<option value="">Select a City</option>');
 
 	var found = allLocations.filter(function(item) { return item.state === selectedText && item.country === selectedCountry; });
 	

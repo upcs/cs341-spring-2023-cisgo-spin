@@ -18,6 +18,9 @@ var adminDataRouter = require('./routes/admin-data');
 var authRouter = require('./routes/auth');
 var locationsRouter = require('./routes/locations');
 var newUserRouter = require('./routes/newuser');
+var descriptionRouter = require('./routes/descriptions');
+var typesRouter = require('./routes/types');
+var logoutRouter = require('./routes/logout');
 
 // Html pages being hosted
 var indexRouter = require('./routes/html/index');
@@ -28,6 +31,7 @@ var formRouter = require('./routes/html/form');
 var locationDemoRouter = require('./routes/html/location-parse-demo');
 var addLocation = require('./routes/html/location-add-demo');
 var loginTest = require('./routes/html/logintest');
+const { type } = require('os');
 
 var app = express();
 
@@ -73,7 +77,9 @@ app.use('/admin-data', adminDataRouter);
 app.use('/locations', locationsRouter);
 app.use('/auth', authRouter);
 app.use('/newuser', newUserRouter);
-
+app.use('/descriptions', descriptionRouter);
+app.use('/types', typesRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
