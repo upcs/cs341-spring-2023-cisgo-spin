@@ -12,7 +12,6 @@ p {
   background-color: lightgrey;
   width: 90%;
   height: 90%;
-  top: 5%;
   text-align: center;
   position: relative;
   margin: auto;
@@ -22,13 +21,13 @@ p {
 #login {
   position: relative;
   bottom: 24%;
-  left: 93.5%;
+  left: 92.5%;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 8%;
+  width: 10%;
   font-size: 20px;
   font-family: sans-serif;
   font-weight: bold;
@@ -103,4 +102,36 @@ p {
 .btn.active {
   background-color: #666;
   color: white;
+}
+
+footer {
+  background-color: black;
+  color: grey;
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+header {
+  height: 240px;
+  text-align: center;
+  overflow: hidden;
+  background-color: indigo;
+  color: white;
+}
+
+header h1 {
+  display: inline-block;
+  padding: 95px 50px 95px 260px;
+  font-size: 50px;
+}
+
+header #logo {
+    width: 200px;
+    float: right;
+    display: block;
+    object-fit: cover;
+    margin: 10px 100px 10px 50px;
 }

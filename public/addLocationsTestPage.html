@@ -32,14 +32,17 @@
 
     <h1 class="center">Form Page</h1>
     <div>
-        <form id="formInfo">
+        <form id="formInfo" onsubmit="submitLocation(); return false;">
             <label for="city">City</label>
             <input type="city" id="city" required><br>
+
             <label for="state">State</label>
             <input type="state" id="state" required><br>
-			<label for="country">Country</label>
+
+			      <label for="country">Country</label>
             <input type="country" id="country" required><br>
-            <input type="button" name="submit_Button" value="Add" class="add-btn" onclick="submitLocation()">
+
+            <input type="submit" name="submit_Button" value="Add" class="add-btn">
         </form>
     </div>
 

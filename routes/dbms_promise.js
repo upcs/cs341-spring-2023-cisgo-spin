@@ -3,9 +3,6 @@
  *
  * This file contains functions for accessing the MySQL database
  * which contains the Cheesecake order data.
- * 
- * WE ARE NO LONGER USING THIS IN THE CISGO-SPIN Project.
- * It has been replaced by ../util/connection.js
  *
  * Updated by: Stelios Papoutsakis & Spencer Rose
  */
