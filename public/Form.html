@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Form</title>
+  <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
   <link href="stylesheets/adminStyle.css" rel="stylesheet" type="text/css" />
   <!-- Link to CSS for Boostrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,33 +22,36 @@
       <h1>SPIN Around the World</h1>
       <img class="img-fluid" id="logo" src="img/up-logo.jfif" alt="Logo">
     </header>
-    <hr class="thick">
+    <hr class="thick-hr">
 
     <main class="container">
 
 
-    <h1 class="center">Form Page</h1>
-    <div>
-        <form id="formInfo">
-            <label for="titleEvent">Event</label>
-            <input type="text" id="titleEvent" required><br>
-            <label for="descriptionEvent">Description</label><br>
-            <textarea rows="5" cols="40" id="descriptionEvent" required></textarea><br>
-            <label for="countryEvent">Country</label>
-            <input type="text" id="countryEvent" required><br>
-            <label for="stateEvent">State</label>
-            <input type="text" id="stateEvent"><br>
-            <label for="cityEvent">City</label>
-            <input type="text" id="cityEvent" required><br>
-            <label for="dateEvent">Date</label>
-            <input type="text" id="dateEvent" required><br>
-            <label for="emailEvent"> Email address</label>
-            <input type="text" id="emailEvent" required><br>
-            <a href="adminPage.html">
-              <input type="submit" name="submit_Button" value="Add" class="add-btn" onclick="submitForm()">
-            </a>
-        </form>
-    </div>
+      <h1 class="center">Form Page</h1>
+      <div>
+          <form id="formInfo">
+              <label for="titleEvent">Event</label>
+              <input type="text" id="titleEvent" required><br>
+              <label for="descriptionEvent">Description</label><br>
+              <textarea rows="5" cols="40" id="descriptionEvent" required></textarea><br>
+              <label for="countryEvent">Country</label>
+              <input type="text" id="countryEvent" required><br>
+              <label for="stateEvent">State</label>
+              <input type="text" id="stateEvent"><br>
+              <label for="cityEvent">City</label>
+              <input type="text" id="cityEvent" required><br>
+              <label for="dateEvent">Date</label>
+              <input type="text" id="dateEvent" required><br>
+              <label for="emailEvent"> Email address</label>
+              <input type="text" id="emailEvent" required><br>
+              <a href="adminPage.html">
+                <input type="submit" name="submit_Button" value="Add" class="add-btn" onclick="submitForm()">
+              </a>
+          </form>
+      </div>
+      <br>
+      <br>
+    </main>
 
     <footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
 
