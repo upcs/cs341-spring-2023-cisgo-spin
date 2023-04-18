@@ -4,8 +4,6 @@
 	As of Mar 2, 2023, though we plan to change up the behavior a little bit, 
 	the file currently defines the endpoint for /opportunities,
 	specifically the get & post request behavior.
-
-	
 */
 
 const { response } = require('express');
@@ -33,11 +31,9 @@ router.post("/", function(req, res, next){
 		console.log("This is actually sending")
 		res.json(opps);
 	},
-   function(error) {
+   	function(error) {
 	   res.status(503).send(error);
-   	}
-	);
-
-})
+	});
+});
 
 module.exports = router;

@@ -5,15 +5,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Form</title>
+  <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
   <link href="stylesheets/adminStyle.css" rel="stylesheet" type="text/css" />
   <!-- Link to CSS for Boostrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="javascripts/formPostHandler.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script>
+    var allLocations = [];
+    var allTypes = [];
+    $(function() {
+      $('input[name="dateEvent"]').daterangepicker();
 
+      $.get('/locations', function(ret){
+        allLocations = ret;
 
+        var countries = _.keys(_.countBy(allLocations, function(data) { return data.country; }));
+
+        $(countries).each(function() {
+          var option = $('<option />');
+          option.attr('value', this).text(this);
+
+          $('#ddl_country').append(option);
+        });
+		  });
+
+      $.get('/types', function(data){
+          allTypes = data;
+
+          var types = _.keys(_.countBy(allTypes, function(data) { return data.type; }));
+
+          $(types).each(function() {
+            var option = $('<option />');
+            option.attr('value', this).text(this);
+
+            $('#ddl_type').append(option);
+          })
+      })
+    })
   </script>
+  <script src="./javascripts/country-select.js"></script>
+  <script src="./javascripts/state-select.js"></script>
 </head>
   <!-- Todo: Fix up the format to look nice  method="post" -->
   <body>
@@ -21,37 +57,50 @@
       <h1>SPIN Around the World</h1>
       <img class="img-fluid" id="logo" src="img/up-logo.jfif" alt="Logo">
     </header>
-    <hr class="thick">
+    <hr class="thick-hr">
 
     <main class="container">
+
 
 
     <h1 class="center">Form Page</h1>
     <div>
         <form id="formInfo" onsubmit="submitForm(); return false">
-            <label for="titleEvent">Event</label>
-            <input type="text" id="titleEvent" required><br>
-            <label for="descriptionEvent">Description</label><br>
-            <textarea rows="5" cols="40" id="descriptionEvent" required></textarea><br>
-            <label for="cityEvent">City</label>
-            <select id="cities" name="citySelect">
-            </select>
-            <label for="countryEvent">Country</label>
-            <select id="countries" name="countrySelect">
-            </select>
-            <label for="typeEvent">Type</label>
-            <select id="type" name="typeSelect">
-            </select>
-            <label for="dateEvent">Date</label>
-            <input type="text" id="dateEvent" required><br>
-            <label for="emailEvent"> Email address</label>
-            <input type="text" id="emailEvent" required><br>
-            <a>
-              <input type="submit" name="submit_Button" value="Add" class="add-btn">
-            </a>
-            <!--href="adminPage.html"-->
+          <label for="titleEvent">Event Name</label>
+          <input type="text" id="titleEvent" required><br>
+
+          <label for="description">Description</label><br>
+          <textarea rows="5" cols="40" id="description" required></textarea><br>
+
+          <label for="ddl_country">Country:</label>
+          <select name="ddl_country" id="ddl_country" required>
+            <option name="">Select a Country</option>
+          </select>
+
+          <label for="ddl_state">State:</label>
+          <select name="ddl_state" id="ddl_state">
+            <option value="">Select a State</option>
+          </select>
+
+          <label for="ddl_city">City:</label>
+          <select name="ddl_city" id="ddl_city" required>
+            <option value="">Select a City</option>
+          </select>
+
+          <label for="typeEvent">Type</label>
+          <select id="ddl_type" name="typeSelect" required></select><br>
+
+          <label for="dateEvent">Date Range</label>
+          <input type="text" name="dateEvent"/><br>
+
+          <label for="emailEvent"> Email address</label>
+          <input type="text" id="emailEvent" required><br>
+
+          <input type="submit" name="submit_Button" value="Add" class="btn btn-outline-primary">
+          <!--href="adminPage.html"-->
         </form>
     </div>
+
 
     <footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
 

@@ -1,8 +1,11 @@
 /**
  * admin-table.js
- * This file contains all functions for the table in the admin page
+ * This file contains all scripts and all functions for the table in the admin page
  * Created by: Kevin Nguyen
- * Version 1.0.0
+ * Version 1.1.0
+ * Note: Currently issues with connecting adminPage.html. For the time being, a temporary
+ * script will be placed into adminPage.html to check if data from admin-data.js is properly
+ * getting
  */
 
 /**
@@ -24,14 +27,36 @@ function getList(){
  * return var[]
  */
 function getOpp(id){
-    var opportunity;
-    $.get("/admin-data",{function(list){
-        for(var listID in list){
-            var oppID = list[listID].opportunity_id;
-            if(oppID == id){
-                opportunity = list[listID];
+    var opportunity = [];
+    $.get("/admin-data/id?id=" + id,{function(oppData){
+        opportunity = oppData;
+    }});
+    return opportunity;
+}
+$(document).ready(function(){
+        var table = $("#admin-Table");
+        var list = getList();
+
+        /* External citation: https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm
+        Problem: Converting json object to a html table
+        Solution: Separate the values of the object, then use for loops to populate the cells
+        */
+       var tr = table.insertRow(-1);
+        var dataVal = [];
+        for(var i = 0; i < list.length; i++){
+            for(var data in list[i]){
+                if(dataVal.indexOf(data) == -1){
+                    dataVal.push(data);
+                }
             }
         }
-        return opportunity;
-    }});
-}
+        for (var i = 0; i < dataVal.length; i++) {
+
+            //tr = table.insertRow(-1);
+            var tabCell = tr.insertCell(-1);
+            tabCell.innerHTML = dataVal[i];
+        }
+});
+
+
+
