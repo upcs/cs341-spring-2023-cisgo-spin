@@ -21,7 +21,7 @@ var newUserRouter = require('./routes/newuser');
 var descriptionRouter = require('./routes/descriptions');
 var typesRouter = require('./routes/types');
 var logoutRouter = require('./routes/logout');
-
+var sessionRouter = require('./routes/session');
 // Html pages being hosted
 var indexRouter = require('./routes/html/index');
 var demoRouter = require('./routes/html/demo');
@@ -78,6 +78,7 @@ app.use('/locations', locationsRouter);
 app.use('/auth', authRouter);
 app.use('/newuser', newUserRouter);
 app.use('/descriptions', descriptionRouter);
+app.use('/session', sessionRouter);
 app.use('/types', typesRouter);
 app.use('/logout', logoutRouter);
 
