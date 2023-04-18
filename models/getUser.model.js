@@ -4,9 +4,11 @@ const connection = require('../util/connection');
 // This specific model calls the query "Select * from opportunity where opportunity id = {id}"
 exports.getUser = async function getUser(req) {
 	// query sent to db: selects specific 1 object from db from matching id
-    const sql = `SELECT * FROM user WHERE email='${req.body.username}'`;
+    const sql = `SELECT * FROM user WHERE email='?'`;
 	return new Promise((resolve, reject) =>{
-		connection.query(sql, (err, data) => {
+		connection.query(sql, 
+			[req.body.username],
+			(err, data) => {
 			if(err){
 				reject(err);
 			}

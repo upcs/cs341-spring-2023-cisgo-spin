@@ -4,9 +4,11 @@ const connection = require('../util/connection');
 // This specific model calls the query "Select * from location where countrycode = '{code}'"
 exports.getAllLocsByCountryCode = async function getAllLocsByCountryCode(req) {
 	// query sent to db: returns all objects from location
-    const sql = `SELECT * FROM location WHERE countrycode='${req.countrycode}'`;
+    const sql = `SELECT * FROM location WHERE countrycode='?'`;
 	return new Promise((resolve, reject) =>{
-		connection.query(sql, (err, data) => {
+		connection.query(sql, 
+			[req.body.countrycode],
+			(err, data) => {
 			if(err){
 				reject(err);
 			}

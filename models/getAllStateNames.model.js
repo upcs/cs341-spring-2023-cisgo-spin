@@ -4,9 +4,11 @@ const connection = require('../util/connection');
 // This specific model calls the query "Select distinct values from state column"
 exports.getAllStateNames = async function getAllStateNames(req) {
 	// query sent to db: selects specific 1 object from db from matching id
-    const sql = `SELECT DISTINCT state FROM location WHERE countrycode='${req}'`;
+    const sql = `SELECT DISTINCT state FROM location WHERE countrycode='?'`;
 	return new Promise((resolve, reject) =>{
-		connection.query(sql, (err, data) => {
+		connection.query(sql, 
+			[req],
+			(err, data) => {
 			if(err){
 				reject(err);
 			}

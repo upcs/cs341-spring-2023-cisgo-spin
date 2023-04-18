@@ -5,7 +5,11 @@ const connection = require('../util/connection');
 exports.postOpp = async function postOpp(req, res) {
 	const sql = `INSERT INTO opportunity (name, type, location_id) VALUES(?, ?, ?)`;
 	return new Promise((resolve, reject) =>{
-		connection.query(sql, [req.body.name, req.body.type, req.body.location_id], (err, data) => {
+		connection.query(sql, 
+			[req.body.name, 
+			 req.body.type, 
+			 req.body.location_id], 
+			 (err, data) => {
 			if(err){
 				reject(err);
 			}
