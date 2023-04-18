@@ -50,6 +50,11 @@ function returnFunction(ret)
 {
     var correctCityName = ret.results[0].address.municipality;
     var correctStateName = ret.results[0].address.countrySubdivisionName;
+
+    if(correctStateName == null || correctStateName == undefined)
+    {
+        correctStateName = ret.results[0].address.countrySubdivision;
+    }
     var correctCountryCode = ret.results[0].address.countryCode;
     var correctCountryName = ret.results[0].address.country;
 
