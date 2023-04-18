@@ -12,12 +12,16 @@
   <link href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" rel="stylesheet" />
   <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
   <script src="https://atlas.microsoft.com/sdk/javascript/service/2/atlas-service.min.js"></script>
-
-  <script src="javascripts/locationPostHandler.js"></script>
   <script>
-
-
+    var allLocations = [];
+    var allTypes = [];
+    $(function() {
+      $.get('/locations', function(ret){
+        allLocations = ret;
+		  });
+    });
   </script>
+  <script src="javascripts/locationPostHandler.js"></script>
 </head>
   <!-- Todo: Fix up the format to look nice  method="post" -->
   <body>
@@ -34,15 +38,15 @@
     <div>
         <form id="formInfo" onsubmit="submitLocation(); return false;">
             <label for="city">City</label>
-            <input type="city" id="city" required><br>
+            <input type="city" id="city"><br>
 
             <label for="state">State</label>
-            <input type="state" id="state" required><br>
+            <input type="state" id="state"><br>
 
 			      <label for="country">Country Code</label>
             <input type="country" id="country" required><br>
 
-            <input type="submit" name="submit_Button" value="Add" class="add-btn">
+            <input type="submit" name="submit_Button" value="" class="add-btn">
         </form>
     </div>
 

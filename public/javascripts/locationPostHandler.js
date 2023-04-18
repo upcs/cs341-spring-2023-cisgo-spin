@@ -5,7 +5,7 @@ function submitLocation(){
     var country = $('#country').val();
 
     // if it's not a 2-3 char country code, we don't want it.
-    if (3 < country.length < 2)
+    if (3 <= country.length >= 2)
     {
         return;
     }
