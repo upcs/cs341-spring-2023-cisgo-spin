@@ -12,45 +12,51 @@ function submitForm(){
             item.country === country;
     });
 
-    var locId = loc[0].location_id;
-    const formDataObj = {
-        name: form.elements['titleEvent'].value,
-        type: form.elements['ddl_type'].value,
-        location_id: locId
-    };
-
-    var oppId;
-    $.post("/opportunities", formDataObj, function(data){
-        oppId = data.insertId;
-    });
-
-    if(oppId == null)
-    {
-        return;
-    }
-
     // if description is less than 30 characters, the short description is the long description
     var desc = form.elements['description'].value;
-    var shortDesc
+    var shortDesc;
     if(desc.length <= 30)
         shortDesc = desc;
     else
         shortDesc = desc.substring(0,30) + "...";
 
-
     const descriptObj = {
         shortdesc: shortDesc,
         longdesc: desc,
-        contact_phone: form.elements['phone'].value,
-        contact_email: form.elements['email'].value,
-        contact_website: form.elements['website'].value,
-        opportunity_id: oppId
+        contact_phone: form.elements['phoneEvent'].value,
+        contact_email: form.elements['emailEvent'].value,
+        contact_website: form.elements['websiteEvent'].value,
+        contact_name: form.elements['contactEvent'].value
     };
 
+
+    var descId;
     $.post("/descriptions", descriptObj, function(data){
-        alert('Success! Opportunity successfully inserted');
+        descId = data.insertId;
+
+        if(descId == null)
+        {
+            return;
+        }
+
+
+        var locId = loc[0].location_id;
+        const formDataObj = {
+            name: form.elements['titleEvent'].value,
+            type: form.elements['ddl_type'].value,
+            startdate: startDate,
+            enddate: endDate,
+            status: form.elements['ddl_status'].value,
+            description_id: descId,
+            location_id: locId
+        };
+
+        $.post("/opportunities", formDataObj, function(data){
+            alert("Success! Opportunity with name " + formDataObj.name + " was successfully inserted!");
+        });
     });
 
+    
 }
 
 

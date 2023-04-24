@@ -18,8 +18,15 @@
   <script>
     var allLocations = [];
     var allTypes = [];
+    var allStatus = [];
+    var startDate;
+    var endDate;
     $(function() {
       $('input[name="dateEvent"]').daterangepicker();
+      $('input[name="dateEvent"]').on('apply.daterangepicker', function(ev, picker) {
+        startDate = picker.startDate.format('YYYY-MM-DD');
+        endDate = picker.endDate.format('YYYY-MM-DD');
+      });
 
       $.get('/locations', function(ret){
         allLocations = ret;
@@ -45,7 +52,20 @@
 
             $('#ddl_type').append(option);
           })
-      })
+      });
+
+      $.get('/status', function(data){
+          allStatus = data;
+
+          var statuses = _.keys(_.countBy(allStatus, function(data) { return data.status; }));
+
+          $(statuses).each(function() {
+            var option = $('<option />');
+            option.attr('value', this).text(this);
+
+            $('#ddl_status').append(option);
+          })
+      });
     })
   </script>
   <script src="./javascripts/country-select.js"></script>
@@ -77,24 +97,40 @@
             <option name="">Select a Country</option>
           </select>
 
-          <label for="ddl_state">State:</label>
+          <label for="ddl_state">State (optional):</label>
           <select name="ddl_state" id="ddl_state">
             <option value="">Select a State</option>
           </select>
 
-          <label for="ddl_city">City:</label>
+          <label for="ddl_city">City (optional):</label>
           <select name="ddl_city" id="ddl_city" required>
             <option value="">Select a City</option>
           </select>
+          
+          <a class="btn btn-outline-primary" href="/addlocation">
+            Add New Location
+          </a><br>
 
           <label for="typeEvent">Type</label>
           <select id="ddl_type" name="typeSelect" required></select><br>
+
+          <label for="statusEvent">Status</label>
+          <select id="ddl_status" name="statusSelect" required></select><br>
 
           <label for="dateEvent">Date Range</label>
           <input type="text" name="dateEvent"/><br>
 
           <label for="emailEvent"> Email address</label>
           <input type="text" id="emailEvent" required><br>
+
+          <label for="websiteEvent">Website (optional)</label>
+          <input type="text" id="websiteEvent" required><br>
+
+          <label for="phoneEvent">Phone Number (optional)</label>
+          <input type="text" id="phoneEvent" required><br>
+
+          <label for="contactEvent">Contact Name (optional)</label>
+          <input type="text" id="contactEvent" required><br>
 
           <input type="submit" name="submit_Button" value="Add" class="btn btn-outline-primary">
           <!--href="adminPage.html"-->

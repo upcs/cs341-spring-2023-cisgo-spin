@@ -253,15 +253,38 @@
       // load the city data from the db
       var cities = [];
       $.getJSON('/locations', function (ret) {
-        for(var i = 0; i < ret.length; i++)
-        {
-          var obj = {
-            geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
-            title:  ret[i].city,
-            id: ret[i].location_id
-          };
-          cities[i] = obj;
-        }
+          for(var i = 0; i < ret.length; i++)
+          {
+            var obj = {};
+            if(ret[i].city == "undefined" || ret[i].city == null)
+            {
+              if(ret[i].state == "undefined" || ret[i].state == null)
+              {
+                obj = {
+                  geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+                  title:  ret[i].country,
+                  id: ret[i].location_id
+                };
+              }
+              else
+              {
+                obj = {
+                  geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+                  title:  ret[i].state,
+                  id: ret[i].location_id
+                };
+              }
+            }
+            else {
+              obj = {
+                geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+                title:  ret[i].city,
+                id: ret[i].location_id
+              };
+            }
+      
+            cities[i] = obj;
+          }
         citySeries.data.setAll(cities);
       });
 
