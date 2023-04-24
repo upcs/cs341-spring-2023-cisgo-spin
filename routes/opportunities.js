@@ -10,6 +10,7 @@ const { response } = require('express');
 var express = require('express');
 const { getAllLocs } = require('../models/getAllLocs.model');
 const { getAllOpps } = require('../models/getAllOpps.model');
+const { getAllOppsByType } = require('../models/getAllOppsByType.model');
 const { postOpp } = require('../models/postOpp.model');
 
 var router = express.Router();
@@ -34,6 +35,42 @@ router.post("/", function(req, res, next){
    	function(error) {
 	   res.status(503).send(error);
 	});
+});
+
+router.get('/active', function(req, res, next) {
+	let type = "Active";
+	var promise = getAllOppsByType(type);
+	promise.then(function(opps) {	
+			res.json(opps);
+		},
+		function(error) {
+			res.status(503).send(error);
+		}
+	);
+});
+
+router.get('/archived', function(req, res, next) {
+	let type = "Archived";
+	var promise = getAllOppsByType(type);
+	promise.then(function(opps) {	
+			res.json(opps);
+		},
+		function(error) {
+			res.status(503).send(error);
+		}
+	);
+});
+
+router.get('/pending', function(req, res, next) {
+	let type = "Pending";
+	var promise = getAllOppsByType(type);
+	promise.then(function(opps) {	
+			res.json(opps);
+		},
+		function(error) {
+			res.status(503).send(error);
+		}
+	);
 });
 
 module.exports = router;
