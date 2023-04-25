@@ -3,7 +3,7 @@ var router = express.Router();
 const {getUser} = require('../models/getUser.model');
 const bcrypt = require('bcrypt');
 
-// http://localhost:3000/auth
+http://localhost:3000/auth
 router.post('/', function(request, response) {
 	// Capture the input fields
 	let username = request.body.username;
@@ -23,7 +23,9 @@ router.post('/', function(request, response) {
 					// correct password, continue
 					request.session.loggedin = true;
 					request.session.username = username;
-				
+
+					// set request perms to be the user's perms in the db. int 0 perms mean superuser
+					request.session.perms = results[0].permissions;
 					//response.status(200).send("Now logged in with user: " + username);
 					response.redirect("/admin");
 					// return success response

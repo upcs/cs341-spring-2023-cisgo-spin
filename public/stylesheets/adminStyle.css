@@ -13,7 +13,12 @@ table {
   height: 50%;
 }
 
-
+label.error { 
+    float: none; color: red; 
+    padding-left: .5em;
+    vertical-align: top; 
+    display: block;
+ }​
 
 #logout {
   margin: 20px 20px 20px 20px;

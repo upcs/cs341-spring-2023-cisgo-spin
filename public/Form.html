@@ -14,6 +14,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script>
     var allLocations = [];
@@ -22,12 +23,24 @@
     var startDate;
     var endDate;
     $(function() {
-      $('input[name="dateEvent"]').daterangepicker();
-      $('input[name="dateEvent"]').on('apply.daterangepicker', function(ev, picker) {
+      $('input[name="daterange"]').daterangepicker({
+        autoUpdateInput: false,
+        opens: 'center',
+        drops: 'auto',
+        locale: {
+            cancelLabel: 'Clear'
+        }
+      });
+
+      $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
         startDate = picker.startDate.format('YYYY-MM-DD');
         endDate = picker.endDate.format('YYYY-MM-DD');
       });
-
+  
+      $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+      });
       $.get('/locations', function(ret){
         allLocations = ret;
 
@@ -66,7 +79,41 @@
             $('#ddl_status').append(option);
           })
       });
-    })
+
+      $("form[name='opportunityform']").validate({
+        // Specify validation rules
+        rules: {
+          // The key name on the left side is the name attribute
+          // of an input field. Validation rules are defined
+          // on the right side
+          title: "required",
+          country: "required",
+          type: "required",
+          status: "required",
+          daterange: "required",
+          email: {
+            required: true,
+            // Specify that email should be validated
+            // by the built-in "email" rule
+            email: true
+          },
+        },
+        messages: {
+          title: "Please enter an opportunity title",
+          country: "Please select a location",
+          type: "Please select an opportunity type.",
+          status: "Please select a status. Active = current or future. Archived = past. Pending = submit for approval.",
+          daterange: "Please select a date range.",
+          email: "Please enter a valid email address"
+        },
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        submitHandler: function(form) {
+          alert('form is valid');
+          return false;
+        }
+      });
+    });
   </script>
   <script src="./javascripts/country-select.js"></script>
   <script src="./javascripts/state-select.js"></script>
@@ -85,25 +132,25 @@
 
     <h1 class="center">Form Page</h1>
     <div>
-        <form id="formInfo" onsubmit="submitForm(); return false">
+        <form id="formInfo" name="opportunityform"onsubmit="submitForm(); return false;">
           <label for="titleEvent">Event Name</label>
-          <input type="text" id="titleEvent" required><br>
+          <input type="text" id="titleEvent" name="title" placeholder="Salzburg Study Abroad"><br>
 
           <label for="description">Description</label><br>
-          <textarea rows="5" cols="40" id="description" required></textarea><br>
+          <textarea rows="5" cols="40" id="description" placeholder="Not required, but highly recommended! Let people know what the opportunity is all about."></textarea><br>
 
           <label for="ddl_country">Country:</label>
-          <select name="ddl_country" id="ddl_country" required>
-            <option name="">Select a Country</option>
+          <select name="country" id="ddl_country" required>
+            <option value="">Select a Country</option>
           </select>
 
           <label for="ddl_state">State (optional):</label>
-          <select name="ddl_state" id="ddl_state">
+          <select name="state" id="ddl_state">
             <option value="">Select a State</option>
           </select>
 
           <label for="ddl_city">City (optional):</label>
-          <select name="ddl_city" id="ddl_city" required>
+          <select name="city" id="ddl_city">
             <option value="">Select a City</option>
           </select>
           
@@ -112,25 +159,29 @@
           </a><br>
 
           <label for="typeEvent">Type</label>
-          <select id="ddl_type" name="typeSelect" required></select><br>
+          <select id="ddl_type" name="type">
+            <option value="">Select a Type</option>
+          </select><br>
 
           <label for="statusEvent">Status</label>
-          <select id="ddl_status" name="statusSelect" required></select><br>
+          <select id="ddl_status" name="status">
+            <option value="">Select a Status</option>
+          </select><br>
 
           <label for="dateEvent">Date Range</label>
-          <input type="text" name="dateEvent"/><br>
+          <input type="text" name="daterange" value=""/><br>
 
           <label for="emailEvent"> Email address</label>
-          <input type="text" id="emailEvent" required><br>
+          <input type="text" id="emailEvent" name="email"><br>
 
           <label for="websiteEvent">Website (optional)</label>
-          <input type="text" id="websiteEvent" required><br>
+          <input type="text" id="websiteEvent"><br>
 
           <label for="phoneEvent">Phone Number (optional)</label>
-          <input type="text" id="phoneEvent" required><br>
+          <input type="text" id="phoneEvent"><br>
 
           <label for="contactEvent">Contact Name (optional)</label>
-          <input type="text" id="contactEvent" required><br>
+          <input type="text" id="contactEvent"><br>
 
           <input type="submit" name="submit_Button" value="Add" class="btn btn-outline-primary">
           <!--href="adminPage.html"-->

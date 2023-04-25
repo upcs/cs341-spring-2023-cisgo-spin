@@ -23,7 +23,6 @@ router.post('/', function(req, res, next) {
 	var promise = postLoc(req);
 
 	promise.then(function(resp){
-		console.log("This is actually sending")
 		res.status(200).send(resp);
 	},
    	function(error) {

@@ -29,7 +29,6 @@ router.get('/', function(req, res, next) {
 router.post("/", function(req, res, next){
 	var promise = postOpp(req);
 	promise.then(function(opps){
-		console.log("This is actually sending")
 		res.json(opps);
 	},
    	function(error) {

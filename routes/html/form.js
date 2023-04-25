@@ -2,7 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next){
-	res.sendFile('/public/form.html', {root: '.'});
+	if(req.session.perms === 0)
+	{
+		res.sendFile('/public/form.html', {root: '.'});
+	}
+	else
+	{
+		res.status(503).send("Please login at /login!");
+	}
 });
 
 module.exports = router;
