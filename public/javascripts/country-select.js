@@ -32,7 +32,7 @@ countrySelectEvent = function( event ) {
 	{	
 		var cities = _.keys(_.countBy(found, function(data) { return data.city; }));
 		cities.sort();
-		$(found).each(function() {
+		$(cities).each(function() {
 			if(this == 'undefined') return;
 			var option1 = $('<option />');
 			option1.attr('value', this).text(this);
