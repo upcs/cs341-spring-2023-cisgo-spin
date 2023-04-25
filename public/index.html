@@ -72,6 +72,9 @@
             </td>
           </tr>
         </table>
+        <div style="width:100%; text-align:center; font-size: medium;">
+          <a>Close</a>
+        </div>
       </div>
     </div>
   </div>
@@ -292,6 +295,11 @@
       if (c == "all") c = "";
       for (i = 0; i < x.length; i++) {
         if (x[i].status.indexOf(c) > -1) selectedOpps[i] = x[i].location_id;
+      }
+      if($.isEmptyObject(selectedOpps))
+      {
+        citySeries.data.setAll(selectedOpps);
+        return;
       }
       bulkGetLocs(selectedOpps, function(locs){
         for(var i = 0; i < locs.length; i++)

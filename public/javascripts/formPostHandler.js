@@ -2,7 +2,13 @@ function submitForm(){
     const form = document.getElementById('formInfo');
 
     var city = $("#ddl_city").val();
+
+    if(city == "") city = 'undefined';
+
     var state = $("#ddl_state").val();
+
+    if(state == "") state = 'undefined';
+
     var country = $("#ddl_country").val();
 
     // select the id of the location matching these things

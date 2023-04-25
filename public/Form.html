@@ -45,7 +45,7 @@
         allLocations = ret;
 
         var countries = _.keys(_.countBy(allLocations, function(data) { return data.country; }));
-
+        countries.sort();
         $(countries).each(function() {
           var option = $('<option />');
           option.attr('value', this).text(this);

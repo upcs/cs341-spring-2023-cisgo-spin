@@ -17,12 +17,29 @@ countrySelectEvent = function( event ) {
 	
 	// get only the keys of the states (so that we're not getting overlapping "oregon")
 	var states = _.keys(_.countBy(found, function(data) { return data.state; }));
+	states.sort();
 	$(states).each(function() {
+		if(this == 'undefined') return;
 		var option = $('<option />');
     	option.attr('value', this).text(this);
 
 		$('#ddl_state').append(option);
 	});
+
+	// if there are no 'states' associated with the country, there might still be cities. 
+	// So fill out the cities in the same way that state-select.js does.
+	if(states[0] == 'undefined')
+	{	
+		var cities = _.keys(_.countBy(found, function(data) { return data.city; }));
+		cities.sort();
+		$(found).each(function() {
+			if(this == 'undefined') return;
+			var option1 = $('<option />');
+			option1.attr('value', this).text(this);
+
+			$('#ddl_city').append(option1);
+		});
+	}
 
 }
 
