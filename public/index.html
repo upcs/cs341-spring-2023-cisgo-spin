@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>SPIN</title>
-  <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
   <!-- Link to CSS for Boostrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -20,15 +20,16 @@
 
   <div id="container">
     <div class="filter">
-      <div id="login">
-        <button onclick="document.location='/login'">Log in</button>
-      </div>
       <div id="filter">
         <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-        <button class="btn" onclick="filterSelection('current')"> Current</button>
-        <button class="btn" onclick="filterSelection('archived')"> Archived</button>
-        <button class="btn" onclick="filterSelection('pending')"> Pending</button>
+        <button class="btn" onclick="filterSelection('Active')"> Current</button>
+        <button class="btn" onclick="filterSelection('Archived')"> Archived</button>
+        <button class="btn" onclick="filterSelection('Pending')"> Pending</button>
       </div>
+      <div id="login">
+        <button id="btn-login" onclick="document.location='/login'">Log in</button>
+      </div>
+      <a style="display:none; padding-top:10px; padding-right:10px;" id="login-text" href="/admin"></a>
     </div>
     <div id="map">
       <div id="chartdiv">
@@ -64,9 +65,9 @@
             </td>
             <td>
               <div id="contact">
-                <p>Phone: senectus et netus</p>
-                <p>Email: morbi tempus iaculis</p>
-                <p>Website: egestas quis ipsum</p>
+                <p id="contact-phone">Phone: senectus et netus</p>
+                <p id="contact-email">Email: morbi tempus iaculis</p>
+                <p id="contact-website">Website: egestas quis ipsum</p>
               </div>
             </td>
           </tr>
@@ -77,63 +78,21 @@
   
   <footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
 
+  <script src="./javascripts/get-map-opps.js"></script>
+  <script src="./javascripts/bulk-get-locs.js"></script>
 
-  <!-- From: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_elements -->
-  <script>
-    filterSelection("all")
-    function filterSelection(c) {
-      var x, i;
-      x = document.getElementsByClassName("filterDiv");
-      if (c == "all") c = "";
-      for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "show");
-        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-      }
-    }
 
-    function w3AddClass(element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-      }
-    }
-
-    function w3RemoveClass(element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        while (arr1.indexOf(arr2[i]) > -1) {
-          arr1.splice(arr1.indexOf(arr2[i]), 1);
-        }
-      }
-      element.className = arr1.join(" ");
-    }
-
-    // Add active class to the current button (highlight it)
-    var btnContainer = document.getElementById("filter");
-    var btns = btnContainer.getElementsByClassName("btn");
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", function () {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-      });
-    }
-  </script>
 
   <!-- JS plugins for Bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+  <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
 
   <!-- Resources -->
   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -145,7 +104,18 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+  <script src="./javascripts/parse-location-opps.js"></script>
+  <script src="./javascripts/check-session.js"></script>
   <!-- Chart code -->
+
+  <script>
+    var allOpps = [];
+    var citySeries;
+    $.getJSON('/opportunities', function(json){
+      allOpps = json;
+      filterSelection("all");
+    });
+  </script>
   <script>
     am5.ready(function () {
 
@@ -218,7 +188,7 @@
       // Nate modified code begins:
 
       // Create polygon series for possible destinations
-      var citySeries = chart.series.push(
+      citySeries = chart.series.push(
         am5map.MapPointSeries.new(root, {
           visible: false
         })
@@ -232,13 +202,13 @@
           tooltipY: 0,
           fill: am5.color(0xffba00),
           stroke: root.interfaceColors.get("background"),
-          strokeWidth: 2
+          strokeWidth: 2,
+          label: "hi"
         });
         circle.events.on("click", function(ev) {
           console.log("Clicked on a bullet!", ev.target.dataItem.dataContext.title);
-          $("#opportunity").text(ev.target.dataItem.dataContext.title);
-          $("#description").text(ev.target.dataItem.dataContext.id);
-          $("#content").show();
+
+          parseLocationOpps(ev.target.dataItem.dataContext.id);
         });
         return am5.Bullet.new(root, {
           sprite: circle
@@ -246,25 +216,49 @@
       });
 
       // load the city data from the db
-      var cities = [];
-      $.getJSON('/locations', function (ret) {
-        for(var i = 0; i < ret.length; i++)
-        {
-          var obj = {
-            geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
-            title:  ret[i].city,
-            id: ret[i].location_id
-          };
-          cities[i] = obj;
-        }
-        citySeries.data.setAll(cities);
-      });
+      // var cities = [];
+      // $.getJSON('/locations', function (ret) {
+      //     for(var i = 0; i < ret.length; i++)
+      //     {
+      //       var obj = {};
+      //       if(ret[i].city == "undefined" || ret[i].city == null)
+      //       {
+      //         if(ret[i].state == "undefined" || ret[i].state == null)
+      //         {
+      //           obj = {
+      //             geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+      //             title:  ret[i].country,
+      //             id: ret[i].location_id
+      //           };
+      //         }
+      //         else
+      //         {
+      //           obj = {
+      //             geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+      //             title:  ret[i].state,
+      //             id: ret[i].location_id
+      //           };
+      //         }
+      //       }
+      //       else {
+      //         obj = {
+      //           geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+      //           title:  ret[i].city,
+      //           id: ret[i].location_id
+      //         };
+      //       }
+      
+      //       cities[i] = obj;
+      //     }
+      //   citySeries.data.setAll(cities);
+      // });
 
       // Add a button to go back to continents view
       var homeButton = chart.children.push(am5.Button.new(root, {
         paddingTop: 10,
         paddingBottom: 10,
         x: am5.percent(100),
+        y: am5.percent(95),
         centerX: am5.percent(100),
         opacity: 0,
         interactiveChildren: false,
@@ -284,10 +278,91 @@
       });
 
 
-
+      sessionCheck();
     }); // end am5.ready()
   </script>
 
+  <!-- From: https://www.w3schools.com/howtoi/tryit.asp?filename=tryhow_js_filter_elements -->
+  <script>
+    function filterSelection(c) {
+      var x, i;
+      x = allOpps;
+      var selectedOpps = {};
+      var coordinateSet = [];
+      if (c == "all") c = "";
+      for (i = 0; i < x.length; i++) {
+        if (x[i].status.indexOf(c) > -1) selectedOpps[i] = x[i].location_id;
+      }
+      bulkGetLocs(selectedOpps, function(locs){
+        for(var i = 0; i < locs.length; i++)
+          {
+            var obj = {};
+            if(locs[i].city == "undefined" || locs[i].city == null)
+            {
+              if(locs[i].state == "undefined" || locs[i].state == null)
+              {
+                obj = {
+                  geometry: {type: 'Point', coordinates: Object.values(locs[i].coords)},
+                  title:  locs[i].country,
+                  id: locs[i].location_id
+                };
+              }
+              else
+              {
+                obj = {
+                  geometry: {type: 'Point', coordinates: Object.values(locs[i].coords)},
+                  title:  locs[i].state,
+                  id: locs[i].location_id
+                };
+              }
+            }
+            else {
+              obj = {
+                geometry: {type: 'Point', coordinates: Object.values(locs[i].coords)},
+                title:  locs[i].city,
+                id: locs[i].location_id
+              };
+            }
+      
+            coordinateSet[i] = obj;
+          }
+          citySeries.data.setAll(coordinateSet);
+      });
+      
+    }
+
+    function w3AddClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+      }
+    }
+
+    function w3RemoveClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+      }
+      element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current button (highlight it)
+    var btnContainer = document.getElementById("filter");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }
+  </script>
 </body>
 
 </html>

@@ -4,17 +4,26 @@ function submitLocation(){
     var state = $('#state').val();
     var country = $('#country').val();
 
+    // if it's not a 2-3 char country code, we don't want it.
+    if (3 <= country.length >= 2)
+    {
+        return;
+    }
     // allLocations exists on runtime of the page, is stored as a global var between scripts
     var found = allLocations.filter(function(item) { 
         return item.city === city && 
         item.state === state && 
-        item.country === country; 
+        item.countryCode === country; 
     });
 
+    // don't add new location if location already exists
     if(found.length != 0)
     {
         return;
     }
+
+
+
 
     /* 
     *   TODO: convert subscription key to be stored in Azure so that it's not visible in user scripts maybe?
@@ -22,14 +31,14 @@ function submitLocation(){
     */
     if(state == null)
     {
-        var htmlString = `https://atlas.microsoft.com/search/address/json?subscription-key=lpT6vdb4FDZAXSuXYrutctuoZp-c5XnaPS7Dh2Z5ipI&api-version=1.0&typeahead=true&query=${city},${state},${country}`
+        var htmlString = `https://atlas.microsoft.com/search/address/structured/json?subscription-key=lpT6vdb4FDZAXSuXYrutctuoZp-c5XnaPS7Dh2Z5ipI&api-version=1.0&typeahead=true&municipality=${city}&countrySubdivision=${state}&countryCode=${country}`
         $.getJSON(htmlString, function(ret){
             returnFunction(ret);
         });
     }
     else
     {
-        var htmlString = `https://atlas.microsoft.com/search/address/json?subscription-key=lpT6vdb4FDZAXSuXYrutctuoZp-c5XnaPS7Dh2Z5ipI&api-version=1.0&typeahead=true&query=${city},${state},${country}`
+        var htmlString = `https://atlas.microsoft.com/search/address/structured/json?subscription-key=lpT6vdb4FDZAXSuXYrutctuoZp-c5XnaPS7Dh2Z5ipI&api-version=1.0&typeahead=true&municipality=${city}&countrySubdivision=${state}&countryCode=${country}`
         $.getJSON(htmlString, function(ret){
             returnFunction(ret);
         });
@@ -41,6 +50,11 @@ function returnFunction(ret)
 {
     var correctCityName = ret.results[0].address.municipality;
     var correctStateName = ret.results[0].address.countrySubdivisionName;
+
+    if(correctStateName == null || correctStateName == undefined)
+    {
+        correctStateName = ret.results[0].address.countrySubdivision;
+    }
     var correctCountryCode = ret.results[0].address.countryCode;
     var correctCountryName = ret.results[0].address.country;
 

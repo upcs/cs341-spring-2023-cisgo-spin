@@ -36,7 +36,6 @@ function getOpp(id){
 $(document).ready(function(){
         var table = $("#admin-Table");
         var list = getList();
-        alert(list);
 
         /* External citation: https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm
         Problem: Converting json object to a html table
