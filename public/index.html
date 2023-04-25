@@ -22,9 +22,9 @@
     <div class="filter">
       <div id="filter">
         <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-        <button class="btn" onclick="filterSelection('current')"> Current</button>
-        <button class="btn" onclick="filterSelection('archived')"> Archived</button>
-        <button class="btn" onclick="filterSelection('pending')"> Pending</button>
+        <button class="btn" onclick="filterSelection('Active')"> Current</button>
+        <button class="btn" onclick="filterSelection('Archived')"> Archived</button>
+        <button class="btn" onclick="filterSelection('Pending')"> Pending</button>
       </div>
       <div id="login">
         <button id="btn-login" onclick="document.location='/login'">Log in</button>
@@ -79,53 +79,9 @@
   <footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
 
   <script src="./javascripts/get-map-opps.js"></script>
+  <script src="./javascripts/bulk-get-locs.js"></script>
 
 
-  <!-- From: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_elements -->
-  <script>
-    filterSelection("all")
-    function filterSelection(c) {
-      var x, i;
-      x = document.getElementsByClassName("filterDiv");
-      if (c == "all") c = "";
-      for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "show");
-        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-      }
-    }
-
-    function w3AddClass(element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-      }
-    }
-
-    function w3RemoveClass(element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        while (arr1.indexOf(arr2[i]) > -1) {
-          arr1.splice(arr1.indexOf(arr2[i]), 1);
-        }
-      }
-      element.className = arr1.join(" ");
-    }
-
-    // Add active class to the current button (highlight it)
-    var btnContainer = document.getElementById("filter");
-    var btns = btnContainer.getElementsByClassName("btn");
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", function () {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-      });
-    }
-  </script>
 
   <!-- JS plugins for Bootstrap -->
   <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -151,6 +107,15 @@
   <script src="./javascripts/parse-location-opps.js"></script>
   <script src="./javascripts/check-session.js"></script>
   <!-- Chart code -->
+
+  <script>
+    var allOpps = [];
+    var citySeries;
+    $.getJSON('/opportunities', function(json){
+      allOpps = json;
+      filterSelection("all");
+    });
+  </script>
   <script>
     am5.ready(function () {
 
@@ -223,7 +188,7 @@
       // Nate modified code begins:
 
       // Create polygon series for possible destinations
-      var citySeries = chart.series.push(
+      citySeries = chart.series.push(
         am5map.MapPointSeries.new(root, {
           visible: false
         })
@@ -251,42 +216,42 @@
       });
 
       // load the city data from the db
-      var cities = [];
-      $.getJSON('/locations', function (ret) {
-          for(var i = 0; i < ret.length; i++)
-          {
-            var obj = {};
-            if(ret[i].city == "undefined" || ret[i].city == null)
-            {
-              if(ret[i].state == "undefined" || ret[i].state == null)
-              {
-                obj = {
-                  geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
-                  title:  ret[i].country,
-                  id: ret[i].location_id
-                };
-              }
-              else
-              {
-                obj = {
-                  geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
-                  title:  ret[i].state,
-                  id: ret[i].location_id
-                };
-              }
-            }
-            else {
-              obj = {
-                geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
-                title:  ret[i].city,
-                id: ret[i].location_id
-              };
-            }
+      // var cities = [];
+      // $.getJSON('/locations', function (ret) {
+      //     for(var i = 0; i < ret.length; i++)
+      //     {
+      //       var obj = {};
+      //       if(ret[i].city == "undefined" || ret[i].city == null)
+      //       {
+      //         if(ret[i].state == "undefined" || ret[i].state == null)
+      //         {
+      //           obj = {
+      //             geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+      //             title:  ret[i].country,
+      //             id: ret[i].location_id
+      //           };
+      //         }
+      //         else
+      //         {
+      //           obj = {
+      //             geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+      //             title:  ret[i].state,
+      //             id: ret[i].location_id
+      //           };
+      //         }
+      //       }
+      //       else {
+      //         obj = {
+      //           geometry: {type: 'Point', coordinates: Object.values(ret[i].coords)},
+      //           title:  ret[i].city,
+      //           id: ret[i].location_id
+      //         };
+      //       }
       
-            cities[i] = obj;
-          }
-        citySeries.data.setAll(cities);
-      });
+      //       cities[i] = obj;
+      //     }
+      //   citySeries.data.setAll(cities);
+      // });
 
       // Add a button to go back to continents view
       var homeButton = chart.children.push(am5.Button.new(root, {
@@ -317,7 +282,87 @@
     }); // end am5.ready()
   </script>
 
+  <!-- From: https://www.w3schools.com/howtoi/tryit.asp?filename=tryhow_js_filter_elements -->
+  <script>
+    function filterSelection(c) {
+      var x, i;
+      x = allOpps;
+      var selectedOpps = {};
+      var coordinateSet = [];
+      if (c == "all") c = "";
+      for (i = 0; i < x.length; i++) {
+        if (x[i].status.indexOf(c) > -1) selectedOpps[i] = x[i].location_id;
+      }
+      bulkGetLocs(selectedOpps, function(locs){
+        for(var i = 0; i < locs.length; i++)
+          {
+            var obj = {};
+            if(locs[i].city == "undefined" || locs[i].city == null)
+            {
+              if(locs[i].state == "undefined" || locs[i].state == null)
+              {
+                obj = {
+                  geometry: {type: 'Point', coordinates: Object.values(locs[i].coords)},
+                  title:  locs[i].country,
+                  id: locs[i].location_id
+                };
+              }
+              else
+              {
+                obj = {
+                  geometry: {type: 'Point', coordinates: Object.values(locs[i].coords)},
+                  title:  locs[i].state,
+                  id: locs[i].location_id
+                };
+              }
+            }
+            else {
+              obj = {
+                geometry: {type: 'Point', coordinates: Object.values(locs[i].coords)},
+                title:  locs[i].city,
+                id: locs[i].location_id
+              };
+            }
+      
+            coordinateSet[i] = obj;
+          }
+          citySeries.data.setAll(coordinateSet);
+      });
+      
+    }
 
+    function w3AddClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+      }
+    }
+
+    function w3RemoveClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+      }
+      element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current button (highlight it)
+    var btnContainer = document.getElementById("filter");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }
+  </script>
 </body>
 
 </html>

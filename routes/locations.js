@@ -45,8 +45,8 @@ router.get('/:id/opps', function(req, res, next) {
 	})
 });
 
-router.get('/bulk', function(req, res, next){
-	var promise = bulkGetLocs(req);
+router.post('/bulk', function(req, res, next){
+	var promise = bulkGetLocs(req.body);
 
 	promise.then(function(resp){
 		res.status(200).send(resp);
