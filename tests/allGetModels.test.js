@@ -8,12 +8,17 @@
 
 const pool = require('../util/connection');
 //Behold, the test data. The motherlode of information. The judge of the test's court
-const hCDataLoc = [{"city": "Seattle", "coords": {"x": -122.33028, "y": 47.60323}, "country": "United States", "countrycode": "US", "location_id": 1, "state": "Washington",}];
+const hCDataLoc = [{"city": "Seattle", 
+                    "coords": {"x": -122.33028, "y": 47.60323}, 
+                    "country": "United States", 
+                    "countrycode": "US", 
+                    "location_id": 1, 
+                    "state": "Washington"}];
 const hCData = [];
 const getAllLocs = require('../models/getAllLocs.model');
 const promise = getAllLocs.getAllLocs();
 const getAllLocsByCC = require('../models/getAllLocsByCountryCode.model');
-const promise2 = getAllLocsByCC.getAllLocsByCountryCode("US");
+const promise2 = getAllLocsByCC.getAllLocsByCountryCode(hCDataLoc[0]);
 const getAllOpps = require('../models/getAllOpps.model');
 const promise3 = getAllOpps.getAllOpps();
 const getAllOppsByLoc = require('../models/getAllOppsByLocation.model');
@@ -26,7 +31,7 @@ test('Checking "getAllLocs" for correct data', () => {
         for(var i = 0; i < hCDataLoc.length; i++){
             expect(data[i]).toMatchObject(hCDataLoc[i]);
         }
-    });
+    })
 });
 
 test('Checking if all locations are correct using Country code in "getAllLocsByCC"', () => {
