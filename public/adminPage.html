@@ -24,7 +24,7 @@ Version 1.1.0
     <!--Temporary code to connect admin-data to the page-->
     <script>
       $(document).ready(function(){
-        var table = document.getElementById("admin-Table");
+        //var table = document.getElementById("admin-Table");
         var data = [];
         $("#logout").click(function() {
           $.ajax({
@@ -37,13 +37,47 @@ Version 1.1.0
         })
 
         $.getJSON('/admin-data', function(ret){
-          data = ret;
-          for(var item in data){
-            var tr = table.insertRow(-1);
-            var dataCell = tr.insertCell(1);
-            var dataPoint = item.name;
-            dataCell.appendChild(dataPoint);
+          rawData = ret;
+          data = rawData.map(({name, startdate}) => ({startdate, name}));
+          var container = document.getElementById("table-Container");
+          
+          var val = [];
+          for (var i = 0; i < data.length; i++) {
+            for (var key in data[i]) {
+              if (val.indexOf(key) === -1) {
+                val.push(key);
+              }
+            }
           }
+          
+          var table = document.createElement("table");
+          table.setAttribute("class", "table");
+
+          var tr = table.insertRow(-1);
+          var thDateStart = document.createElement("th");
+          var thName = document.createElement("th");
+          var thAction = document.createElement("th");
+          thDateStart.innerHTML = "Date Start";
+          thName.innerHTML = "Title";
+          thAction.innerHTML = "Action";
+          tr.append(thDateStart);
+          tr.append(thName);
+          tr.append(thAction);
+          
+          for (let i = 0; i < data.length; i++) {
+            tr = table.insertRow(-1);
+            for (let j = 0; j < val.length + 1; j++) {
+              let tabCell = tr.insertCell(-1);
+              if(j == 2){
+                tabCell.innerHTML = '<a href="Form.html"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
+              }
+              else{
+                tabCell.innerHTML = data[i][val[j]];
+              }
+            }
+          }
+          
+          container.append(table);
         });
       });
     </script>
@@ -109,7 +143,9 @@ Version 1.1.0
     <br>
     <br>
     <!-- Todo: Program to add more data onto list, limited by x amount per row -->
-    <div>
+    <div id="table-Container">
+      <!--Placeholder Table (to be removed)-->
+      <!--
       <table class="table" id="admin-Table">
         <tr>
           <th>Date</th>
@@ -127,7 +163,7 @@ Version 1.1.0
           </td>
         </tr>
         <tr>
-          <!-- Todo: replace with either buttons or an options menu-->
+           Todo: replace with either buttons or an options menu
           <td>2/11</td>
           <td>Salzberg Project</td>
           <td>
@@ -148,9 +184,8 @@ Version 1.1.0
           </td>
         </tr>
       </table>
+    -->
     </div>
-    <!-- Todo: Create href pages depending on amount of data
-    Todo: program the buttons to navigate pages-->
     <div style="text-align: center;">
       <button type="button">previous</button>
       <a href="">1 </a>
@@ -158,6 +193,8 @@ Version 1.1.0
       <a href="">3 </a>
       <button type="button">next</button>
     </div>
+    <!-- Todo: Create href pages depending on amount of data
+    Todo: program the buttons to navigate pages-->
 
     <!-- JS plugins for Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
