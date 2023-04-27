@@ -23,7 +23,7 @@ function submitForm(){
     * country with no city + state so that we don't crash when someone decides
     * not to select a Country with no city+state
     */
-    if(loc == null)
+    if(loc.length == 0)
     {
         loc = allLocations.filter(function(item) { 
             return item.state === state && 
