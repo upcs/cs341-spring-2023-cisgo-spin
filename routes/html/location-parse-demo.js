@@ -8,7 +8,7 @@ router.get('/', function(req, res, next){
 	}
 	else
 	{
-		res.status(503).send("Please login at /login!");
+		res.status(403).send("Please login at /login!");
 	}
 });
 

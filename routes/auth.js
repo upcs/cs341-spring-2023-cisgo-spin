@@ -1,9 +1,17 @@
+/**
+ * auth.js
+ * This file will use getUser.model.js
+ * and check to see if the user's password is correct
+ * Created By: Nate H
+ * Version 1.0.0
+ */
+
 var express = require('express');
 var router = express.Router();
 const {getUser} = require('../models/getUser.model');
 const bcrypt = require('bcrypt');
 
-http://localhost:3000/auth
+// http://localhost:3000/auth
 router.post('/', function(request, response) {
 	// Capture the input fields
 	let username = request.body.username;

@@ -18,14 +18,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/", function(req, res, next){
-	var promise = postDesc(req);
-	promise.then(function(desc){
-		console.log("This is actually sending");
-		res.json(desc);
-	},
-   	function(error) {
-	   res.status(503).send(error);
-	});
+	if(req.session.perms == 0)
+	{
+		var promise = postDesc(req);
+		promise.then(function(desc){
+			console.log("This is actually sending");
+			res.json(desc);
+		},
+		   function(error) {
+		   res.status(503).send(error);
+		});
+	}
+	else
+	{
+		res.status(403).send("You're not authorized to post new descs!");
+	}
 });
 
 module.exports = router;

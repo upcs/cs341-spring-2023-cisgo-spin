@@ -1,3 +1,11 @@
+/**
+ * locations.js
+ * This file defines the endpoint for 
+ * Created By: Nate H
+ * Version 1.5.0
+ */
+
+
 const { response } = require('express');
 var express = require('express');
 const { getAllLocs } = require('../models/getAllLocs.model');
@@ -20,14 +28,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	var promise = postLoc(req);
+	if(req.session.perms == 0)
+	{
+		var promise = postLoc(req);
 
-	promise.then(function(resp){
-		res.status(200).send(resp);
-	},
-   	function(error) {
-	   res.status(503).send(error);
-	});
+		promise.then(function(resp){
+			res.status(200).send(resp);
+		},
+		function(error) {
+		res.status(503).send(error);
+		});
+	}
+	else
+	{
+		res.status(403).send("You're not authorized to post new locs!");
+	}
 });
 
 router.get('/:id', function(req, res){

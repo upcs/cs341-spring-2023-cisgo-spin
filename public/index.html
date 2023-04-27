@@ -138,7 +138,7 @@
       // https://www.amcharts.com/docs/v5/charts/map-chart/
       var chart = root.container.children.push(am5map.MapChart.new(root, {
         panX: "rotateX",
-        projection: am5map.geoNaturalEarth1()
+        projection: am5map.geoEquirectangular()
       }));
 
       var colorSet = am5.ColorSet.new(root, {});

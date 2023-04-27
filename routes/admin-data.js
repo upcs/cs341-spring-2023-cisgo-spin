@@ -12,25 +12,39 @@ const {getOppsbyID} = require('../models/getOppWithID.model')
 
 //Router to get all opportunities
 router.get('/', function(req, res, next){
-    var promise = getAllOpps();
+    if(req.session.perms == 0)
+    {
+        var promise = getAllOpps();
 
-    promise.then(function(opps){
-        res.json(opps);
-    }, 
-    function(err){
-        res.status(404).send(err);
-    });
+        promise.then(function(opps){
+            res.json(opps);
+        }, 
+        function(err){
+            res.status(404).send(err);
+        });
+    }
+    else
+    {
+		res.status(403).send("You're not authorized to view the admin info!");
+    }
 
 });
 
 //router to get an opportunity using an ID
 router.get('/id',function(req, res, next){
-    var promise = getOppsbyID(req.query.id);
-    promise.then(function(opportunity){
-        res.json(opportunity);
-    },function(err){
-        res.status(404).send(err);
-    })
+    if(req.session.perms == 0)
+    {
+        var promise = getOppsbyID(req.query.id);
+        promise.then(function(opportunity){
+            res.json(opportunity);
+        },function(err){
+            res.status(404).send(err);
+        })
+    }
+    else
+    {
+		res.status(403).send("You're not authorized to view the admin info!");
+    }
 });
 
 module.exports = router;

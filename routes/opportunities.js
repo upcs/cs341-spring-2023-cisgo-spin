@@ -27,13 +27,20 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/", function(req, res, next){
-	var promise = postOpp(req);
-	promise.then(function(opps){
-		res.json(opps);
-	},
-   	function(error) {
-	   res.status(503).send(error);
-	});
+	if(req.session.perms == 0)
+	{
+		var promise = postOpp(req);
+		promise.then(function(opps){
+			res.json(opps);
+		},
+		function(error) {
+		res.status(503).send(error);
+		});
+	}
+	else
+	{
+		res.status(403).send("You're not authorized to post new opps!");
+	}
 });
 
 router.get('/active', function(req, res, next) {
