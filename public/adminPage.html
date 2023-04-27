@@ -69,7 +69,7 @@ Version 1.1.0
             for (let j = 0; j < val.length + 1; j++) {
               let tabCell = tr.insertCell(-1);
               if(j == 2){
-                tabCell.innerHTML = '<a href="Form.html"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
+                tabCell.innerHTML = '<a href="/form"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
               }
               else{
                 tabCell.innerHTML = data[i][val[j]];
@@ -110,7 +110,7 @@ Version 1.1.0
             <input type="text" id="search" name="searchTextBox">
             <input type="submit" value="Enter">
         </form>
-        <a href=advSearch.html style="font-size: 13px">advanced search</a>
+        <a href="/advSearch" style="font-size: 13px">advanced search</a>
 
 
 
@@ -135,7 +135,7 @@ Version 1.1.0
                 </form>
             </div>
         </div>
-        <a href="Form.html" id="add">
+        <a href="/form" id="add">
             <button type="button"  class="add-btn">Add</button>
         </a>
     </div>

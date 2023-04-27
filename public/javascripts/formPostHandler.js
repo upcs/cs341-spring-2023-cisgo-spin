@@ -18,6 +18,19 @@ function submitForm(){
             item.country === country;
     });
 
+    /* 
+    * TODO: This is a placeholder. We might want to add a version of every
+    * country with no city + state so that we don't crash when someone decides
+    * not to select a Country with no city+state
+    */
+    if(loc == null)
+    {
+        loc = allLocations.filter(function(item) { 
+            return item.state === state && 
+                item.country === country;
+            });
+    }
+
     // if description is less than 30 characters, the short description is the long description
     var desc = form.elements['description'].value;
     var shortDesc;
