@@ -78,7 +78,26 @@
       </div>
     </div>
   </div>
-  
+
+
+  <div class="deleteBtn">
+    <button class="openButton" style="float: right;" onclick="openForm()" id="deleteButton">Delete</button>
+  </div>
+  <div class="deletePopup" id="deletePop">
+      <div class="formPopup" id="popupFormDelete">
+          <form action="" class="formContainer">
+              <select class="dropdown-content" name="options" id="options" size="3">
+                  <option value="First" id="1st">Spain Study Abroad</option>
+                  <option value="Second" id="2nd">Salzberg Project</option>
+                  <option value="Third" id="3rd">Paris Study Abroad</option>
+
+              </select>
+              <button type="submit" class="btn">Delete</button>
+              <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+          </form>
+      </div>
+  </div>
+
   <footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
 
   <script src="./javascripts/get-map-opps.js"></script>
@@ -107,18 +126,21 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <script src="./javascripts/parse-location-opps.js"></script>
+
   <script src="./javascripts/check-session.js"></script>
   <!-- Chart code -->
 
   <script>
     var allOpps = [];
     var citySeries;
+    var modal;
+    var modalSetup = false;
     $.getJSON('/opportunities', function(json){
       allOpps = json;
       filterSelection("all");
     });
   </script>
+  <script src="./javascripts/parse-location-opps.js"></script>
   <script>
     am5.ready(function () {
 
@@ -196,6 +218,10 @@
           visible: false
         })
       );
+
+      modal  = am5.Modal.new(root, {
+        content: "<h3>There are multiple opportunities here...</h3><p>Please select which you would like to view!</p>"
+      });
 
       // add the definition for a circle pin to citySeries
       citySeries.bullets.push(function () {
