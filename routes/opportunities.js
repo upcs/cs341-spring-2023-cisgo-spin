@@ -80,7 +80,7 @@ router.get('/pending', function(req, res, next) {
 	);
 });
 
-router.post('/id/status', function(req, res, next){
+router.post('/:id/status', function(req, res, next){
 
 	var object = {};
 	object.id = req.params.id;
