@@ -63,13 +63,14 @@ Version 1.1.0
           tr.append(thDateStart);
           tr.append(thName);
           tr.append(thAction);
+          tr.setAttribute("data-id", raw )
           
           for (let i = 0; i < data.length; i++) {
             tr = table.insertRow(-1);
             for (let j = 0; j < val.length + 1; j++) {
               let tabCell = tr.insertCell(-1);
               if(j == 2){
-                tabCell.innerHTML = '<a href="/form"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
+                tabCell.innerHTML = `<a href="#"> <button type="button">Edit</button> <button type="button" onclick="postStatus(${rawData[i].opportunity_id},"Archived"}); return false;">Archive</button> </a>`
               }
               else{
                 tabCell.innerHTML = data[i][val[j]];

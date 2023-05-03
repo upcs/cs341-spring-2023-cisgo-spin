@@ -12,6 +12,7 @@ const { getAllLocs } = require('../models/getAllLocs.model');
 const { getAllOpps } = require('../models/getAllOpps.model');
 const { getAllOppsByType } = require('../models/getAllOppsByType.model');
 const { postOpp } = require('../models/postOpp.model');
+const { postAllActiveOpps } = require('../models/postAllActiveOpps.model');
 
 var router = express.Router();
 
@@ -78,5 +79,20 @@ router.get('/pending', function(req, res, next) {
 		}
 	);
 });
+
+router.post('/id/status', function(req, res, next){
+
+	var object = {};
+	object.id = req.params.id;
+	object.status = req.query.status;
+	var promise = postAllActiveOpps(object);
+	promise.then(function(opps){
+		res.json(opps);
+	},
+	function(error){
+		res.status(503).send(error);
+	}
+	)
+})
 
 module.exports = router;
