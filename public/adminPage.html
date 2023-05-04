@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<html>
+
 <!-- index.html
 Created by: Kevin Nguyen
 Version 1.1.0
 -->
-<html>
 
 <head>
 
@@ -21,6 +22,7 @@ Version 1.1.0
     <!--TODO: find a way for admin-table to connect properly to the page-->
     <script src="javascripts/admin-table.js"></script>
     <script src="javascripts/logout.js"></script>
+    <script src="javascripts/postStatus.js"></script>
     <!--Temporary code to connect admin-data to the page-->
     <script>
       $(document).ready(function(){
@@ -69,7 +71,7 @@ Version 1.1.0
             for (let j = 0; j < val.length + 1; j++) {
               let tabCell = tr.insertCell(-1);
               if(j == 2){
-                tabCell.innerHTML = '<a href="/form"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
+                tabCell.innerHTML = `<a href="#"> <button type="button">Edit</button> <button type="button" onclick="postStatus(${rawData[i].opportunity_id},'Archived'); return false;">Archive</button> </a>`
               }
               else{
                 tabCell.innerHTML = data[i][val[j]];
