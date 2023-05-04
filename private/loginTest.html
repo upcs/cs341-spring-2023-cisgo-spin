@@ -7,23 +7,48 @@
         <!-- the form awesome library is used to add icons to our form -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <!-- include the stylesheet file -->
-        <link href="./stylesheets/style.css" rel="stylesheet" type="text/css">
+
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/adminStyle.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<div class="login">
-			<h1>Login</h1>
-			<form action="/auth" method="post">
-				<label for="username">
-					<!-- font awesome icon -->
-					<i class="fas fa-envelope"></i>
-				</label>
-				<input type="text" name="username" placeholder="Email Address" id="username" required>
-				<label for="password">
-					<i class="fas fa-lock"></i>
-				</label>
-				<input type="password" name="password" placeholder="Password" id="password" required>
-				<input type="submit" value="Login">
-			</form>
+		<header>
+      <h1>SPIN Around the World</h1>
+      <img class="img-fluid" id="logo" src="img/up-logo.jfif" alt="Logo">
+    </header>
+    <hr class="thick-hr">
+
+
+		<div class="main-color">
+	    <main class="container-login">
+				<br>
+				<div class="login">
+					<h2>Username</h2>
+					<form action="/auth" method="post">
+						<label for="username">
+							<!-- font awesome icon -->
+							<i class="fas fa-user"></i>
+						</label>
+						<input type="text" name="username" placeholder="Username" id="username" required>
+						<br>
+						<br>
+						<br>
+						<h2>Password</h2>
+						<label for="password">
+							<i class="fas fa-lock"></i>
+						</label>
+						<input type="password" name="password" placeholder="Password" id="password" required>
+						<br><br><br>
+						<input type="submit" value="Log in" id="login-btn">
+						<br><br>
+					</form>
+				</div>
+
+			</main>
+
 		</div>
+
+		<footer>Copyright &copy; Univerity of Portland. All Rights Reserved</footer>
+
 	</body>
 </html>

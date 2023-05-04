@@ -1,12 +1,31 @@
 html, body {
   height: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
 
 p {
   font-size: 2vh;
   color: gray;
 }
+
+#username, #password {
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 90%;
+  height: 50px;
+  font-size: 24px;
+}
+
+#login-btn {
+  font-size: 24px;
+  width: 90%;
+  padding: 10px;
+}
+
 
 #container {
   background-color: lightgrey;

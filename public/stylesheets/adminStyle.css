@@ -4,6 +4,7 @@ html, body {
   height: 100%;
   width: 100%;
 }
+  
 div {
   display: block;
 
@@ -26,6 +27,13 @@ label.error {
   background-color: #6c757d;
     color: white;
 }
+
+.container-login {
+    width: 800px;
+    margin: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 
 .table {
   text-align: center;
