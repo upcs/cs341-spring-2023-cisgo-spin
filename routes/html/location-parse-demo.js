@@ -4,7 +4,7 @@ var router = express.Router();
 router.get('/', function(req, res, next){
 	if(req.session.perms === 0)
 	{
-		res.sendFile('/public/locationParseDemo.html', {root: '.'});
+		res.sendFile('/private/locationParseDemo.html', {root: '.'});
 	}
 	else
 	{

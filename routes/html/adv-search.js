@@ -4,7 +4,7 @@ var router = express.Router();
 router.get('/', function(req, res, next){
 	if(req.session.perms === 0)
 	{
-		res.sendFile('/public/advSearch.html', {root: '.'});
+		res.sendFile('/private/advSearch.html', {root: '.'});
 	}
 	else
 	{

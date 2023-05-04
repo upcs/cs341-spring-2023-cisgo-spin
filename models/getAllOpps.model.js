@@ -4,7 +4,7 @@ const connection = require('../util/connection');
 // This specific model calls the query "Select * from opportunity"
 exports.getAllOpps = async function getAllOpps(req) {
 	// query sent to db: returns all objects from opportunity
-    const sql = "SELECT * FROM opportunity";
+    const sql = "SELECT * FROM opportunity WHERE status <> 'Deleted'";
 	return new Promise((resolve, reject) =>{
 		connection.query(sql, (err, data) => {
 			if(err){
