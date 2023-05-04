@@ -101,8 +101,8 @@ app.use(function(err, req, res, next) {
 });
 
 /* UNCOMMENT THIS WHEN IT COMES TIME TO DEPLOY */
-//app.listen(port, () => {
-//  console.log(`Example app listening at http://localhost:${port}`)
-//})
+app.listen(port, () => {
+console.log(`Example app listening at http://localhost:${port}`)
+})
 
 module.exports = app;
