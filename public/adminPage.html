@@ -87,9 +87,7 @@ Version 1.1.0
             for (let j = 0; j < val.length + 1; j++) {
               let tabCell = tr.insertCell(-1);
               if(j == 4){
-                tabCell.innerHTML = '<a href="#"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
-              if(j == 2){
-                tabCell.innerHTML = `<a href="#"> <button type="button">Edit</button> <button type="button" onclick="postStatus(${rawData[i].opportunity_id},'Archived'); return false;">Archive</button> </a>`
+                tabCell.innerHTML = `<a href="/admin"> <button type="button" onclick="postStatus(${rawData[i].opportunity_id},'Deleted'); return false;">Delete</button> <button type="button" onclick="postStatus(${rawData[i].opportunity_id},'Archived'); return false;">Archive</button> </a>`
               }
               else{
                 tabCell.innerHTML = data[i][val[j]];

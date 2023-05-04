@@ -82,17 +82,23 @@ router.get('/pending', function(req, res, next) {
 
 router.post('/:id/status', function(req, res, next){
 
-	var object = {};
-	object.id = req.params.id;
-	object.status = req.query.status;
-	var promise = postAllActiveOpps(object);
-	promise.then(function(opps){
-		res.json(opps);
-	},
-	function(error){
-		res.status(503).send(error);
+	if(req.session.perms == 0)
+	{
+		var object = {};
+		object.id = req.params.id;
+		object.status = req.query.status;
+		var promise = postAllActiveOpps(object);
+		promise.then(function(opps){
+			res.json(opps);
+		},
+		function(error){
+			res.status(503).send(error);
+		});
 	}
-	)
+	else
+	{
+		res.status(403).send("You're not authorized to post opp data!");
+	}
 })
 
 module.exports = router;

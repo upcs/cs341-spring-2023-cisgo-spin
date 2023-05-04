@@ -72,6 +72,8 @@ function submitForm(){
 
         $.post("/opportunities", formDataObj, function(data){
             alert("Success! Opportunity with name " + formDataObj.name + " was successfully inserted!");
+
+            window.location.href = "/admin";
         });
     });
 
