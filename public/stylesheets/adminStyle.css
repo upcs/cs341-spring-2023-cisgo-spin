@@ -116,6 +116,7 @@ table {
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -144,6 +145,13 @@ h1, h2, h3, h4 ,h5, h6 {
 .container{
     width: 1400px;
     margin: auto;
+}
+
+.container-login {
+  width: 800px;
+  margin: auto;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 

@@ -1,6 +1,9 @@
 html, body {
   height: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
 
 p {
@@ -32,6 +35,22 @@ p {
   font-family: sans-serif;
   font-weight: bold;
 }
+
+#username, #password {
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 90%;
+  height: 50px;
+  font-size: 24px;
+}
+
+#login-btn {
+  font-size: 24px;
+  width: 90%;
+  padding: 10px;
+}
+
 
 #login:hover {
   opacity: 0.8;
@@ -123,7 +142,7 @@ header {
 }
 
 header h1 {
-  display: inline-block;
+  /*display: inline-block;*/
   padding: 95px 50px 95px 260px;
   font-size: 50px;
 }
@@ -131,7 +150,7 @@ header h1 {
 header #logo {
     width: 200px;
     float: right;
-    display: block;
+    /*display: block;*/
     object-fit: cover;
     margin: 10px 100px 10px 50px;
 }
