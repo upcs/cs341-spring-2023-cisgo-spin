@@ -38,7 +38,7 @@ Version 1.1.0
 
         $.getJSON('/admin-data', function(ret){
           rawData = ret;
-          data = rawData.map(({name, startdate}) => ({startdate, name}));
+          data = rawData.map(({name, startdate, enddate, status}) => ({startdate, enddate, name, status}));
           var container = document.getElementById("table-Container");
           
           var val = [];
@@ -48,6 +48,16 @@ Version 1.1.0
                 val.push(key);
               }
             }
+            let start = data[i].startdate;
+            if(start)
+            {
+              data[i].startdate = new Date(start).toDateString();
+            }
+            let end = data[i].enddate;
+            if(end)
+            {
+              data[i].enddate = new Date(end).toDateString();
+            }
           }
           
           var table = document.createElement("table");
@@ -55,21 +65,27 @@ Version 1.1.0
 
           var tr = table.insertRow(-1);
           var thDateStart = document.createElement("th");
+          var thDateEnd = document.createElement("th");
           var thName = document.createElement("th");
+          var thStatus = document.createElement("th");
           var thAction = document.createElement("th");
           thDateStart.innerHTML = "Date Start";
+          thDateEnd.innerHTML = "Date End";
           thName.innerHTML = "Title";
+          thStatus.innerHTML = "Status";
           thAction.innerHTML = "Action";
           tr.append(thDateStart);
+          tr.append(thDateEnd);
           tr.append(thName);
+          tr.append(thStatus);
           tr.append(thAction);
           
           for (let i = 0; i < data.length; i++) {
             tr = table.insertRow(-1);
             for (let j = 0; j < val.length + 1; j++) {
               let tabCell = tr.insertCell(-1);
-              if(j == 2){
-                tabCell.innerHTML = '<a href="/form"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
+              if(j == 4){
+                tabCell.innerHTML = '<a href="#"> <button type="button">Edit</button> <button type="button">Archive</button> </a>'
               }
               else{
                 tabCell.innerHTML = data[i][val[j]];
@@ -100,46 +116,14 @@ Version 1.1.0
 
     <div>
       <button type="button" id="logout"> Logout</button>
-      <p>Select an item from the list below or search using the search bar below to edit an item.
-        <br>You can also press add or delete on the right to do those action.</p>
+      <p>Select an item from the list below to edit an item.
+        <br>You can also press add on the right to add a new opportunity.</p>
     </div>
-
     <div>
-        <form>
-            <label for="search"> search </label>
-            <input type="text" id="search" name="searchTextBox">
-            <input type="submit" value="Enter">
-        </form>
-        <a href="/advSearch" style="font-size: 13px">advanced search</a>
-
-
-
-        <div class="deleteBtn">
-            <button class="openButton" style="float: right;" onclick="openForm()" id="deleteButton">Delete</button>
-        </div>
-        <div class="loginPopup" id="deletePop">
-            <div class="formPopup" id="popupFormDelete">
-                <form action="/action_page.php" class="formContainer">
-                    <h2>Deletion Form</h2>
-                    <label for="Delete">
-                        <strong>Select Event</strong>
-                    </label>
-                    <select class="dropdown-content" name="options" id="options" size="3">
-                        <option value="First" id="1st">Spain Study Abroad</option>
-                        <option value="Second" id="2nd">Salzberg Project</option>
-                        <option value="Third" id="3rd">Paris Study Abroad</option>
-
-                    </select>
-                    <button type="submit" class="btn">Delete</button>
-                    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-                </form>
-            </div>
-        </div>
-        <a href="/form" id="add">
-            <button type="button"  class="add-btn">Add</button>
-        </a>
+      <a id="add" href="/form">
+        <button class="add-btn" type="button">Add</button>
+      </a>
     </div>
-
     <br>
     <br>
     <!-- Todo: Program to add more data onto list, limited by x amount per row -->

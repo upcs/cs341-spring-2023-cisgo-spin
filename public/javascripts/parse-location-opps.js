@@ -5,10 +5,10 @@ function parseLocationOpps(location_id)
 		{
 			$("#opportunity").text(obj[0].name);
 			$("#description").text(obj[0].longdesc);
-			$("#contact-phone").text(obj[0].contact_phone);
-			$("#contact-email").text(obj[0].contact_email);
-			$("#contact-website").text(obj[0].contact_website);
-			$("#content").show();
+			$("#contact-phone").text("Phone: " + obj[0].contact_phone);
+			$("#contact-email").text("Email address: " + obj[0].contact_email);
+			$("#contact-website").text("Website: " + obj[0].contact_website);
+			$("#content").fadeIn();
 		}
 		else
 		{
@@ -37,10 +37,10 @@ function parseLocationOpps(location_id)
 					var found = obj.filter(function(item) { return item.opportunity_id == value });
 					$("#opportunity").text(found[0].name);
 					$("#description").text(found[0].longdesc);
-					$("#contact-phone").text(found[0].contact_phone);
-					$("#contact-email").text(found[0].contact_email);
-					$("#contact-website").text(found[0].contact_website);
-					$("#content").show();
+					$("#contact-phone").text("Phone: " + found[0].contact_phone);
+					$("#contact-email").text("Email address: " + found[0].contact_email);
+					$("#contact-website").text("Website: " + found[0].contact_website);
+					$("#content").fadeIn();
 				}
 				modal.close();
 			});
